@@ -1,0 +1,57 @@
+---
+// Importamos los componentes como bloques de LEGO
+import Hero from '../components/Hero.astro';
+import Beneficios from '../components/Beneficios.astro';
+import Galeria from '../components/Galeria.astro';
+---
+
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Venta e instalación de paneles solares" />
+    <title>Nova Solar | Energía Limpia</title>
+  </head>
+  <body class="antialiased">
+    
+    <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-sm">
+      <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+        
+        <a href="/" class="flex items-center">
+            <img 
+              src="/logo.svg" 
+              alt="Logo Nova Solar" 
+              class="h-16 w-auto object-contain" 
+            />
+        </a>
+		<div class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+            <a href="/" class="text-orange-600 font-bold">Inicio</a>
+            <a href="/galeria" class="hover:text-orange-600 transition">Proyectos</a>
+            <a href="/#cotizador" class="hover:text-orange-600 transition">Cotizador</a>
+            <a href="/contacto" class="hover:text-orange-600 transition">Contacto</a>
+			<a href="/citas" class="hover:text-orange-600 transition">Citas</a>
+
+        </div>
+
+        <a 
+          href="https://wa.me/526181699033" 
+          target="_blank"
+          class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-600 transition"
+        >
+          WhatsApp
+        </a>
+      </div>
+    </nav>
+
+    <main>
+      <Hero />
+      <Beneficios />
+      <Galeria />
+    </main>
+
+    <footer class="bg-black/90 text-white py-8 text-center text-sm border-t border-slate-800">
+      <p>© 2026 Nova Solar. Todos los derechos reservados.</p>
+    </footer>
+
+  </body>
+</html>

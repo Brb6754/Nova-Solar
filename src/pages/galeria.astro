@@ -1,0 +1,203 @@
+---
+// src/pages/galeria.astro
+import "../styles/global.css"; // Importamos estilos para que funcione Tailwind
+
+// BASE DE DATOS DE PROYECTOS (Aquí puedes poner 20 si quieres)
+const portfolio = [
+    {
+        titulo: "Residencia Campestre",
+        cliente: "Familia Rodríguez",
+        ubicacion: "Fracc. El Campestre, Durango",
+        specs: "16 Paneles • 8.5 kWp",
+        // Foto de casa moderna con paneles claros
+        img: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=2672&auto=format&fit=crop",
+        categoria: "Residencial",
+    },
+    {
+        titulo: "Plaza Comercial Guadiana",
+        cliente: "Grupo Inmobiliario DGO",
+        ubicacion: "Blvd. Domingo Arrieta, Durango",
+        specs: "80 Paneles • 45 kWp",
+        // Foto de edificio comercial/oficinas con paneles en el techo
+        img: "https://images.unsplash.com/photo-1624397640148-949b1732bb0a?q=80&w=2574&auto=format&fit=crop",
+        categoria: "Comercial",
+    },
+    {
+        titulo: "Casa Jardines de Durango",
+        cliente: "Ing. Martínez",
+        ubicacion: "Jardines de Durango",
+        specs: "10 Paneles • 5 kWp",
+        // Foto de techo residencial inclinado
+        img: "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=3264&auto=format&fit=crop",
+        categoria: "Residencial",
+    },
+    {
+        titulo: "Mini Super El Centro",
+        cliente: "Abarrotes del Guadiana",
+        ubicacion: "Centro Histórico, Durango",
+        specs: "24 Paneles • 12 kWp",
+        // Foto de instalación comercial limpia
+        img: "https://images.unsplash.com/photo-1624397640148-949b1732bb0a?q=80&w=2574&auto=format&fit=crop",
+        categoria: "Comercial",
+    },
+    {
+        titulo: "Residencia Los Remedios",
+        cliente: "Familia Soto",
+        ubicacion: "Lomas del Parque, Durango",
+        specs: "Sistema Híbrido (Con Baterías)",
+        // Foto residencial con cielo azul
+        img: "https://images.unsplash.com/photo-1624397640148-949b1732bb0a?q=80&w=2574&auto=format&fit=crop",
+        categoria: "Residencial",
+    },
+    {
+        titulo: "Techumbre Gimnasio Fit",
+        cliente: "Power Gym DGO",
+        ubicacion: "Av. 20 de Noviembre, Durango",
+        specs: "40 Paneles • 20 kWp",
+        // Foto de paneles en techo plano comercial
+        img: "https://images.unsplash.com/photo-1497440001374-f26997328c1b?q=80&w=2304&auto=format&fit=crop",
+        categoria: "Comercial",
+    },
+];
+---
+
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Portafolio de Proyectos | Nova Solar</title>
+    </head>
+    <body class="bg-slate-50 antialiased">
+        <nav class="fixed w-full z-50 bg-black/90 backdrop-blur-sm">
+            <div
+                class="container mx-auto px-4 py-3 flex justify-between items-center"
+            >
+                <a href="/" class="flex items-center">
+                    <img
+                        src="/logo.svg"
+                        alt="Logo Nova Solar"
+                        class="h-16 w-auto object-contain"
+                    />
+                </a>
+
+                <div
+                    class="hidden md:flex gap-6 text-sm font-medium text-gray-600"
+                >
+                    <a href="/" class="hover:text-orange-600 transition"
+                        >Inicio</a
+                    >
+                    <a href="/galeria" class="text-orange-600 font-bold"
+                        >Proyectos</a
+                    >
+                    <a
+                        href="/#cotizador"
+                        class="hover:text-orange-600 transition">Cotizador</a
+                    >
+                    <a href="/contacto" class="hover:text-orange-600 transition"
+                        >Contacto</a
+                    >
+                    <a href="/citas" class="hover:text-orange-600 transition"
+                        >Citas</a
+                    >
+                </div>
+
+                <a
+                    href="https://wa.me/526181699033"
+                    target="_blank"
+                    class="bg-green-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-600 transition"
+                >
+                    WhatsApp
+                </a>
+            </div>
+        </nav>
+
+        <main class="pt-24 pb-20">
+            <section class="container mx-auto px-4 mb-16 text-center pt-12">
+                <span
+                    class="text-orange-500 font-bold tracking-widest text-xs uppercase mb-2 block"
+                    >Portafolio 2025-2026</span
+                >
+                <h1 class="text-4xl md:text-6xl font-bold text-slate-900 mb-6">
+                    Nuestras Instalaciones
+                </h1>
+                <p class="text-xl text-gray-500 max-w-2xl mx-auto">
+                    Hemos instalado más de 1,000 paneles en todo Durango. Aquí
+                    puedes ver una selección de nuestros proyectos residenciales
+                    e industriales más recientes.
+                </p>
+            </section>
+
+            <section class="container mx-auto px-4">
+                <div
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {
+                        portfolio.map((item) => (
+                            <article class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 group">
+                                <div class="relative h-64 overflow-hidden">
+                                    <img
+                                        src={item.img}
+                                        alt={item.titulo}
+                                        class="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+                                    />
+                                    <div class="absolute top-4 right-4 bg-black/70 text-white text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+                                        {item.categoria}
+                                    </div>
+                                </div>
+
+                                <div class="p-6">
+                                    <h3 class="text-xl font-bold text-slate-900 mb-1">
+                                        {item.titulo}
+                                    </h3>
+                                    <p class="text-sm text-gray-500 mb-4">
+                                        {item.cliente} • {item.ubicacion}
+                                    </p>
+
+                                    <div class="flex items-center justify-between border-t border-gray-100 pt-4 mt-2">
+                                        <span class="text-orange-600 font-semibold text-sm">
+                                            ⚡ {item.specs}
+                                        </span>
+                                        <span class="text-gray-400 text-sm">
+                                            2024
+                                        </span>
+                                    </div>
+                                </div>
+                            </article>
+                        ))
+                    }
+                </div>
+            </section>
+
+            <section class="container mx-auto px-4 mt-20">
+                <div
+                    class="bg-black rounded-3xl p-10 md:p-16 text-center text-white relative overflow-hidden"
+                >
+                    <div class="relative z-10">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                            ¿Te gustó lo que viste?
+                        </h2>
+                        <p class="text-gray-300 mb-8 text-lg">
+                            Tu techo puede ser el siguiente proyecto de éxito.
+                        </p>
+                        <a
+                            href="/#cotizador"
+                            class="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-full transition transform hover:scale-105"
+                        >
+                            Cotizar mi Panel Solar
+                        </a>
+                    </div>
+                    <div
+                        class="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-full blur-[100px] opacity-20 translate-x-1/2 -translate-y-1/2"
+                    >
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer
+            class="bg-black text-white py-8 text-center text-sm border-t border-slate-800"
+        >
+            <p>© 2026 Nova Solar. Todos los derechos reservados.</p>
+        </footer>
+    </body>
+</html>
