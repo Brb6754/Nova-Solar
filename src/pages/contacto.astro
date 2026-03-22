@@ -3,6 +3,9 @@ import "../styles/global.css";
 const telefonoEmpresa = "526181699033";
 const ctaBase = `https://wa.me/${telefonoEmpresa}?text=Hola%20Nova%20Solar,%20quiero%20cotizar%20paneles%20para%20mi%20casa/negocio`;
 const logoImg = "/logo.svg";
+
+// AQUÍ PONES EL CORREO A DONDE QUIERES QUE LLEGUEN LOS MENSAJES
+const correoDestino = "contacto@novasolardgo.com";
 ---
 
 <html lang="es" class="scroll-smooth">
@@ -37,7 +40,7 @@ const logoImg = "/logo.svg";
                     </a>
                 
                     <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                 </div>
             </div>
@@ -121,37 +124,56 @@ const logoImg = "/logo.svg";
                     <div class="bg-white rounded-[30px] shadow-xl p-10 md:p-12 border border-gray-100 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500 opacity-5 rounded-bl-[100px] pointer-events-none"></div>
 
-                        <h3 class="text-3xl font-extrabold text-gray-950 tracking-tight mb-8">Envíanos un mensaje</h3>
+                        <div id="form-container">
+                            <h3 class="text-3xl font-extrabold text-gray-950 tracking-tight mb-8">Envíanos un mensaje</h3>
 
-                        <form action="https://formspree.io/f/xkoowrjo" method="POST" class="space-y-6 relative z-10">
-                            <input type="hidden" name="_next" value="/gracias" />
-                            <input type="hidden" name="_subject" value="Nuevo contacto desde Web Nova Solar" />
+                            <form id="contacto-form" class="space-y-6 relative z-10">
+                                <input type="hidden" name="_subject" value="Nuevo contacto desde Web Nova Solar" />
+                                <input type="hidden" name="_captcha" value="false" />
+                                <input type="hidden" name="_template" value="table" />
 
-                            <div>
-                                <label class="block text-sm font-bold text-gray-950 mb-2">Nombre</label>
-                                <input type="text" name="nombre" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="Tu nombre" required />
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-950 mb-2">Email</label>
-                                    <input type="email" name="email" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="correo@ejemplo.com" required />
+                                    <label class="block text-sm font-bold text-gray-950 mb-2">Nombre</label>
+                                    <input type="text" name="Nombre" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="Tu nombre" required />
                                 </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-bold text-gray-950 mb-2">Email</label>
+                                        <input type="email" name="Email" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="correo@ejemplo.com" required />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-bold text-gray-950 mb-2">Teléfono</label>
+                                        <input type="tel" name="Telefono" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="(618) 000-0000" />
+                                    </div>
+                                </div>
+
                                 <div>
-                                    <label class="block text-sm font-bold text-gray-950 mb-2">Teléfono</label>
-                                    <input type="tel" name="telefono" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="(618) 000-0000" />
+                                    <label class="block text-sm font-bold text-gray-950 mb-2">Mensaje</label>
+                                    <textarea name="Mensaje" rows="4" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="Escribe tu mensaje..." required></textarea>
                                 </div>
-                            </div>
 
-                            <div>
-                                <label class="block text-sm font-bold text-gray-950 mb-2">Mensaje</label>
-                                <textarea name="mensaje" rows="4" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition text-gray-900" placeholder="Escribe tu mensaje..."></textarea>
-                            </div>
+                                <button type="submit" id="btn-submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-lg py-4 px-6 rounded-2xl transition duration-300 shadow-xl mt-4">
+                                    Enviar Mensaje
+                                </button>
+                                
+                                <p id="loading-text" class="text-center text-orange-600 font-bold hidden animate-pulse mt-4">Enviando mensaje...</p>
+                            </form>
+                        </div>
 
-                            <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-extrabold text-lg py-4 px-6 rounded-2xl transition duration-300 shadow-xl mt-4">
-                                Enviar Mensaje
+                        <div id="resultado-container" class="hidden relative z-10 text-center space-y-6 py-10 animate-fade-in-up">
+                            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto text-green-500 mb-4">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            
+                            <h2 class="text-3xl font-extrabold text-gray-950 tracking-tight">¡Mensaje Enviado!</h2>
+                            <p class="text-gray-600 text-lg font-light">Gracias por contactarnos. Nuestro equipo revisará tu mensaje y te responderemos lo más pronto posible.</p>
+                            
+                            <button id="btn-nuevo" class="mt-6 text-orange-600 font-bold hover:underline transition">
+                                Enviar otro mensaje
                             </button>
-                        </form>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -164,14 +186,68 @@ const logoImg = "/logo.svg";
             </div>
         </footer>
 
-        <script>
-            // Menú Móvil
+        <script define:vars={{ correoDestino }}>
+            // 1. Menú Móvil
             const btn = document.getElementById("menu-btn");
             const menu = document.getElementById("mobile-menu");
             if (btn && menu) {
-                btn.addEventListener("click", () =>
-                    menu.classList.toggle("hidden"),
-                );
+                btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+            }
+
+            // 2. Lógica del Formulario con FormSubmit (AJAX)
+            const form = document.getElementById('contacto-form');
+            const formContainer = document.getElementById('form-container');
+            const resultContainer = document.getElementById('resultado-container');
+            const btnSubmit = document.getElementById('btn-submit');
+            const loadingText = document.getElementById('loading-text');
+            const btnNuevo = document.getElementById('btn-nuevo');
+
+            if(form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault(); // Evitar que la página recargue
+
+                    // Cambiar estado visual a cargando
+                    btnSubmit.classList.add('hidden');
+                    loadingText.classList.remove('hidden');
+
+                    const formData = new FormData(form);
+
+                    // Petición a FormSubmit
+                    fetch(`https://formsubmit.co/ajax/${correoDestino}`, {
+                        method: "POST",
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.success) {
+                            // Mostrar mensaje de éxito
+                            formContainer.classList.add('hidden');
+                            resultContainer.classList.remove('hidden');
+                            form.reset(); // Limpiar el formulario
+                        } else {
+                            alert("Hubo un problema enviando el mensaje. Por favor intenta de nuevo.");
+                            btnSubmit.classList.remove('hidden');
+                            loadingText.classList.add('hidden');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert("Error de conexión. Por favor revisa tu internet.");
+                        btnSubmit.classList.remove('hidden');
+                        loadingText.classList.add('hidden');
+                    });
+                });
+
+                // Botón para resetear y enviar uno nuevo
+                btnNuevo.addEventListener('click', () => {
+                    resultContainer.classList.add('hidden');
+                    formContainer.classList.remove('hidden');
+                    btnSubmit.classList.remove('hidden');
+                    loadingText.classList.add('hidden');
+                });
             }
         </script>
     </body>
