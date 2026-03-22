@@ -1,13 +1,11 @@
 ---
-// src/pages/galeria.astro
+import Layout from '../layouts/Layout.astro';
 import "../styles/global.css";
-const telefonoEmpresa = "526181699033";
 
+const telefonoEmpresa = "526181699033";
 const ctaBase = `https://wa.me/${telefonoEmpresa}?text=Hola%20Nova%20Solar,%20quiero%20cotizar%20paneles%20para%20mi%20casa/negocio`;
 
-
-// IMPORTANTE: Ya no necesitamos multiplicar el arreglo, con las 5 originales basta.
-// El nuevo código hace que den vueltas infinitamente.
+// Las 5 fotos originales para el carrusel infinito
 const imagenesGaleria = [
     "/IMG_2322.JPG",
     "/IMG_3207.jpeg",
@@ -24,15 +22,9 @@ const imagenesGaleria = [
 const logoImg = "/logo.svg";
 ---
 
-<html lang="es" class="scroll-smooth">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <title>Proyectos Instalados | Nova Solar Durango</title>
-    </head>
-    <body class="bg-gray-50 antialiased text-gray-950 overflow-x-hidden">
-        
-        <nav class="fixed w-full z-50 bg-black backdrop-blur-sm border-b border-gray-900">
+<Layout title="Proyectos Instalados | Nova Solar Durango">
+    
+    <nav class="fixed w-full z-50 bg-black backdrop-blur-sm border-b border-gray-900">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center">
                 <img src={logoImg} alt="Logo Nova Solar Durango" class="h-10 md:h-12 w-auto object-contain" />
@@ -72,164 +64,162 @@ const logoImg = "/logo.svg";
         </div>
     </nav>
 
-        <main class="pt-36 pb-20 overflow-hidden">
+    <main class="pt-36 pb-20 overflow-hidden">
+        
+        <section class="container mx-auto px-6 mb-12 text-center">
+            <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Portafolio</span>
+            <h1 class="text-5xl md:text-6xl font-black text-gray-950 tracking-tighter mb-4">
+                Nuestras Instalaciones
+            </h1>
+            <p class="text-xl text-gray-600 font-light max-w-2xl mx-auto">
+                Calidad y excelencia en cada panel. Proyectos residenciales y comerciales en Durango.
+            </p>
+        </section>
+
+        <section class="w-full mb-20 relative group">
             
-            <section class="container mx-auto px-6 mb-12 text-center">
-                <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Portafolio</span>
-                <h1 class="text-5xl md:text-6xl font-black text-gray-950 tracking-tighter mb-4">
-                    Nuestras Instalaciones
-                </h1>
-                <p class="text-xl text-gray-600 font-light max-w-2xl mx-auto">
-                    Calidad y excelencia en cada panel. Proyectos residenciales y comerciales en Durango.
-                </p>
-            </section>
+            <button id="btn-prev" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm text-gray-950 p-4 md:p-5 rounded-full shadow-2xl border border-gray-100 hover:bg-orange-600 hover:text-white transition-all transform hover:scale-110 focus:outline-none hidden md:flex">
+                <svg class="w-6 h-6 -translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
 
-            <section class="w-full mb-20 relative group">
-                
-                <button id="btn-prev" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm text-gray-950 p-4 md:p-5 rounded-full shadow-2xl border border-gray-100 hover:bg-orange-600 hover:text-white transition-all transform hover:scale-110 focus:outline-none hidden md:flex">
-                    <svg class="w-6 h-6 -translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-
-                <div class="w-full overflow-hidden px-6 md:px-24 py-10">
-                    <div id="carrusel-track" class="flex gap-6 will-change-transform">
-                        {
-                            imagenesGaleria.map((img) => (
-                                <div class="flex-none w-[85vw] md:w-[60vw] lg:w-[45vw] h-[400px] md:h-[500px] rounded-[30px] overflow-hidden shadow-xl border border-gray-200 bg-white select-none">
-                                    <img
-                                        src={img}
-                                        alt="Instalación de paneles solares Nova Solar"
-                                        class="w-full h-full object-cover hover:scale-105 transition duration-700 pointer-events-none"
-                                        loading="lazy"
-                                    />
-                                </div>
-                            ))
-                        }
-                    </div>
+            <div class="w-full overflow-hidden px-6 md:px-24 py-10">
+                <div id="carrusel-track" class="flex gap-6 will-change-transform">
+                    {
+                        imagenesGaleria.map((img) => (
+                            <div class="flex-none w-[85vw] md:w-[60vw] lg:w-[45vw] h-[400px] md:h-[500px] rounded-[30px] overflow-hidden shadow-xl border border-gray-200 bg-white select-none">
+                                <img
+                                    src={img}
+                                    alt="Instalación de paneles solares Nova Solar"
+                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 pointer-events-none"
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))
+                    }
                 </div>
-
-                <button id="btn-next" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm text-gray-950 p-4 md:p-5 rounded-full shadow-2xl border border-gray-100 hover:bg-orange-600 hover:text-white transition-all transform hover:scale-110 focus:outline-none hidden md:flex">
-                    <svg class="w-6 h-6 translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-            </section>
-
-            <section class="container mx-auto px-6">
-                <div class="bg-black rounded-[40px] p-12 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
-                    <div class="relative z-10 max-w-2xl mx-auto space-y-8">
-                        <h2 class="text-4xl md:text-5xl font-black tracking-tighter">
-                            ¿Listo para ver tus propios paneles?
-                        </h2>
-                        <p class="text-gray-400 text-lg font-light">
-                            Cotiza hoy mismo y te decimos exactamente cuánto vas a ahorrar.
-                        </p>
-                        <a
-                            href="https://wa.me/526181699033?text=Hola%20Nova%20Solar,%20vi%20su%20galer%C3%ADa%20y%20quiero%20cotizar"
-                            target="_blank"
-                            class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-black font-extrabold text-xl px-10 py-4 rounded-full transition duration-300 shadow-xl"
-                        >
-                            Cotizar mi Proyecto
-                        </a>
-                    </div>
-                    
-                    <div class="absolute top-0 right-0 w-96 h-96 bg-orange-600 rounded-full blur-[120px] opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="bg-black text-white py-12 text-center text-sm border-t border-gray-900 mt-10">
-            <div class="container mx-auto px-6 max-w-5xl">
-                <img src={logoImg} alt="Logo Nova Solar" class="h-8 mx-auto mb-6 object-contain opacity-80" />
-                <p class="text-gray-500">© 2026 Nova Solar Durango. Todos los derechos reservados.</p>
             </div>
-        </footer>
 
-        <script>
-            const track = document.getElementById('carrusel-track');
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
-            let autoplayInterval;
-            let isTransitioning = false; // Evita que se rompa si le dan muchos clics rápidos
+            <button id="btn-next" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm text-gray-950 p-4 md:p-5 rounded-full shadow-2xl border border-gray-100 hover:bg-orange-600 hover:text-white transition-all transform hover:scale-110 focus:outline-none hidden md:flex">
+                <svg class="w-6 h-6 translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </section>
 
-            if (track && btnPrev && btnNext) {
+        <section class="container mx-auto px-6">
+            <div class="bg-black rounded-[40px] p-12 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
+                <div class="relative z-10 max-w-2xl mx-auto space-y-8">
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter">
+                        ¿Listo para ver tus propios paneles?
+                    </h2>
+                    <p class="text-gray-400 text-lg font-light">
+                        Cotiza hoy mismo y te decimos exactamente cuánto vas a ahorrar.
+                    </p>
+                    <a
+                        href="https://wa.me/526181699033?text=Hola%20Nova%20Solar,%20vi%20su%20galer%C3%ADa%20y%20quiero%20cotizar"
+                        target="_blank"
+                        class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-black font-extrabold text-xl px-10 py-4 rounded-full transition duration-300 shadow-xl"
+                    >
+                        Cotizar mi Proyecto
+                    </a>
+                </div>
                 
-                // Calcula exactamente cuánto moverse: El ancho de una foto + el espacio (gap-6 = 24px)
-                const getMoveDistance = () => {
-                    const firstItem = track.children[0];
-                    return firstItem.offsetWidth + 24; 
-                };
+                <div class="absolute top-0 right-0 w-96 h-96 bg-orange-600 rounded-full blur-[120px] opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+            </div>
+        </section>
 
-                const moveNext = () => {
-                    if (isTransitioning) return;
-                    isTransitioning = true;
-                    
-                    const distance = getMoveDistance();
-                    
-                    // 1. Animamos la fila hacia la izquierda
-                    track.style.transition = 'transform 0.5s ease-in-out';
-                    track.style.transform = `translateX(-${distance}px)`;
-                    
-                    // 2. Cuando termina la animación, pasamos la primera foto al final de la fila
-                    track.addEventListener('transitionend', function handler() {
-                        track.style.transition = 'none'; // Apagamos animación un milisegundo
-                        track.style.transform = 'translateX(0)'; // Reseteamos posición
-                        track.appendChild(track.firstElementChild); // Teletransporte de la foto
-                        
-                        track.removeEventListener('transitionend', handler);
-                        isTransitioning = false;
-                    });
-                };
+    </main>
 
-                const movePrev = () => {
-                    if (isTransitioning) return;
-                    isTransitioning = true;
-                    
-                    const distance = getMoveDistance();
-                    
-                    // 1. Pasamos la última foto al principio invisiblemente
-                    track.insertBefore(track.lastElementChild, track.firstElementChild);
+    <footer class="bg-black text-white py-12 text-center text-sm border-t border-gray-900 mt-10">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <img src={logoImg} alt="Logo Nova Solar" class="h-8 mx-auto mb-6 object-contain opacity-80" />
+            <p class="text-gray-500">© 2026 Nova Solar Durango. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica del menú móvil
+        const btn = document.getElementById("menu-btn");
+        const menu = document.getElementById("mobile-menu");
+        if (btn && menu) {
+            btn.addEventListener("click", () => menu.classList.toggle("hidden"));
+        }
+
+        // Lógica del carrusel infinito
+        const track = document.getElementById('carrusel-track');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        let autoplayInterval;
+        let isTransitioning = false;
+
+        if (track && btnPrev && btnNext) {
+            
+            const getMoveDistance = () => {
+                const firstItem = track.children[0];
+                return firstItem.offsetWidth + 24; 
+            };
+
+            const moveNext = () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                const distance = getMoveDistance();
+                
+                track.style.transition = 'transform 0.5s ease-in-out';
+                track.style.transform = `translateX(-${distance}px)`;
+                
+                track.addEventListener('transitionend', function handler() {
                     track.style.transition = 'none';
-                    track.style.transform = `translateX(-${distance}px)`;
-                    
-                    // 2. Forzamos al navegador a registrar el cambio
-                    track.offsetHeight; 
-                    
-                    // 3. Animamos hacia la posición original
-                    track.style.transition = 'transform 0.5s ease-in-out';
                     track.style.transform = 'translateX(0)';
+                    track.appendChild(track.firstElementChild);
                     
-                    track.addEventListener('transitionend', function handler() {
-                        track.removeEventListener('transitionend', handler);
-                        isTransitioning = false;
-                    });
-                };
-
-                // Eventos de los botones
-                btnNext.addEventListener('click', () => {
-                    moveNext();
-                    resetAutoplay();
+                    track.removeEventListener('transitionend', handler);
+                    isTransitioning = false;
                 });
+            };
 
-                btnPrev.addEventListener('click', () => {
-                    movePrev();
-                    resetAutoplay();
+            const movePrev = () => {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                const distance = getMoveDistance();
+                
+                track.insertBefore(track.lastElementChild, track.firstElementChild);
+                track.style.transition = 'none';
+                track.style.transform = `translateX(-${distance}px)`;
+                
+                track.offsetHeight; 
+                
+                track.style.transition = 'transform 0.5s ease-in-out';
+                track.style.transform = 'translateX(0)';
+                
+                track.addEventListener('transitionend', function handler() {
+                    track.removeEventListener('transitionend', handler);
+                    isTransitioning = false;
                 });
+            };
 
-                // Lógica de Autoplay Fluido (cada 3 segundos)
-                const startAutoplay = () => {
-                    autoplayInterval = setInterval(moveNext, 3000);
-                };
+            btnNext.addEventListener('click', () => {
+                moveNext();
+                resetAutoplay();
+            });
 
-                const resetAutoplay = () => {
-                    clearInterval(autoplayInterval);
-                    startAutoplay();
-                };
+            btnPrev.addEventListener('click', () => {
+                movePrev();
+                resetAutoplay();
+            });
 
-                startAutoplay(); // Arranca al cargar la página
+            const startAutoplay = () => {
+                autoplayInterval = setInterval(moveNext, 3000);
+            };
 
-                // Pausar si el usuario pasa el mouse por encima
-                track.parentElement.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-                track.parentElement.addEventListener('mouseleave', startAutoplay);
-            }
-        </script>
-    </body>
-</html>
+            const resetAutoplay = () => {
+                clearInterval(autoplayInterval);
+                startAutoplay();
+            };
+
+            startAutoplay();
+
+            track.parentElement.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+            track.parentElement.addEventListener('mouseleave', startAutoplay);
+        }
+    </script>
+</Layout>
