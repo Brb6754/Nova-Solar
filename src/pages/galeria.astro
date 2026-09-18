@@ -1,225 +1,135 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import "../styles/global.css";
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
-const telefonoEmpresa = "526181699033";
-const ctaBase = `https://wa.me/${telefonoEmpresa}?text=Hola%20Nova%20Solar,%20quiero%20cotizar%20paneles%20para%20mi%20casa/negocio`;
+import g1 from '../assets/fotos/IMG_2322.JPG';
+import g2 from '../assets/fotos/IMG_3207.jpeg';
+import g3 from '../assets/fotos/IMG_4750.jpeg';
+import g4 from '../assets/fotos/IMG_4758.jpeg';
+import g5 from '../assets/fotos/IMG_5304.jpeg';
+import g6 from '../assets/fotos/img1.jpeg';
+import g7 from '../assets/fotos/img2.jpeg';
+import g8 from '../assets/fotos/img3.jpg';
+import g9 from '../assets/fotos/imgcasa.jpeg';
+import g10 from '../assets/fotos/imgnegocio.jpeg';
 
-// Las 5 fotos originales para el carrusel infinito
-const imagenesGaleria = [
-    "/IMG_2322.JPG",
-    "/IMG_3207.jpeg",
-    "/IMG_4750.jpeg",
-    "/IMG_4758.jpeg",
-    "/IMG_5304.jpeg",
-    "/img1.jpeg",
-    "/img2.jpeg",
-    "/img3.jpg",
-    "/imgcasa.jpeg",
-    "/imgnegocio.jpeg"
-];
+const galeria = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10];
 
-const logoImg = "/logo.svg";
+const wa =
+	'https://wa.me/526181699033?text=Hola%20Nova%20Solar%2C%20vi%20su%20galer%C3%ADa%20y%20quiero%20cotizar';
 ---
 
-<Layout title="Proyectos Instalados | Nova Solar Durango">
-    
-    <nav class="fixed w-full z-50 bg-black backdrop-blur-sm border-b border-gray-900">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src={logoImg} alt="Logo Nova Solar Durango" class="h-10 md:h-12 w-auto object-contain" />
-            </a>
+<Layout
+	title="Proyectos | Nova Solar Durango"
+	description="Instalaciones residenciales y comerciales que hemos entregado en Durango."
+>
+	<Nav activa="proyectos" />
 
-            <div class="hidden md:flex gap-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                <a href="/" class="hover:text-orange-500 transition">Inicio</a>
-                <a href="/galeria" class="text-orange-500 transition">Proyectos</a>
-                <a href="/cotizador" class="hover:text-orange-500 transition">Cotizador</a>
-                <a href="/contacto" class="hover:text-orange-500 transition">Contacto</a>
-                <a href="/citas" class="hover:text-orange-500 transition">Citas</a>
-            </div>
+	<main class="grano relative isolate overflow-hidden pb-24 pt-32 md:pt-40">
+		<div class="horizonte" aria-hidden="true">
+			<div class="bruma" style="top: 14%"></div>
+			<div class="arco" style="top: 22%"></div>
+		</div>
 
-            <div class="flex items-center gap-4">
-                <a
-                    href={ctaBase}
-                    target="_blank"
-                    class="bg-green-500 text-black px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-green-600 transition shadow-lg flex items-center gap-2"
-                >
-                    WhatsApp
-                </a>
-                
-                <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
-        </div>
-        
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-900">
-            <div class="px-6 py-4 space-y-2 text-center">
-                <a href="/" class="block text-orange-500 py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Inicio</a>
-                <a href="/galeria" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Proyectos</a>
-                <a href="/cotizador" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Cotizador</a>
-                <a href="/contacto" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Contacto</a>
-                <a href="/citas" class="block text-gray-400 hover:text-white py-3 text-sm font-bold tracking-widest uppercase">Citas</a>
-            </div>
-        </div>
-    </nav>
+		<div class="relative z-10">
+			<header class="mx-auto max-w-6xl px-5 md:px-8">
+				<h1 class="display max-w-3xl titulo-luz" style="font-size: var(--t-h2)">
+					Techos que ya trabajan solos
+				</h1>
+				<p class="sobre-fuego mt-5 max-w-prosa" style="font-size: var(--t-lead)">
+					Instalaciones residenciales y comerciales entregadas en Durango. Arrastra para ver más.
+				</p>
+			</header>
 
-    <main class="pt-36 pb-20 overflow-hidden">
-        
-        <section class="container mx-auto px-6 mb-12 text-center">
-            <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Portafolio</span>
-            <h1 class="text-5xl md:text-6xl font-black text-gray-950 tracking-tighter mb-4">
-                Nuestras Instalaciones
-            </h1>
-            <p class="text-xl text-gray-600 font-light max-w-2xl mx-auto">
-                Calidad y excelencia en cada panel. Proyectos residenciales y comerciales en Durango.
-            </p>
-        </section>
+			<!-- Carrusel con scroll-snap nativo: se arrastra con el dedo, con
+			     rueda, con teclado, y los botones solo lo empujan. -->
+			<section class="relative mt-12" aria-label="Fotos de instalaciones">
+				<div
+					id="pista"
+					tabindex="0"
+					class="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-5 pb-4 md:px-8"
+					style="scrollbar-width: none"
+				>
+					{
+						galeria.map((foto, i) => (
+							<figure class="m-0 w-[85vw] shrink-0 snap-center sm:w-[60vw] lg:w-[42vw]">
+								<Image
+									src={foto}
+									alt={`Instalación de paneles solares de Nova Solar, proyecto ${i + 1}`}
+									widths={[500, 900]}
+									width={900}
+									sizes="(min-width: 1024px) 42vw, (min-width: 640px) 60vw, 85vw"
+									format="webp"
+									quality={76}
+									loading={i < 2 ? 'eager' : 'lazy'}
+									class="h-[58vw] max-h-[480px] w-full rounded-2xl border border-white/10 object-cover"
+								/>
+							</figure>
+						))
+					}
+				</div>
 
-        <section class="w-full mb-20 relative group">
-            
-            <button id="btn-prev" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm text-gray-950 p-4 md:p-5 rounded-full shadow-2xl border border-gray-100 hover:bg-orange-600 hover:text-white transition-all transform hover:scale-110 focus:outline-none hidden md:flex">
-                <svg class="w-6 h-6 -translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"></path></svg>
-            </button>
+				<div class="mt-6 flex justify-center gap-3">
+					<button id="btn-prev" type="button" class="flecha" aria-label="Fotos anteriores">
+						<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M20 12H5m0 0 6-6m-6 6 6 6"></path>
+						</svg>
+					</button>
+					<button id="btn-next" type="button" class="flecha" aria-label="Fotos siguientes">
+						<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M4 12h15m0 0-6-6m6 6-6 6"></path>
+						</svg>
+					</button>
+				</div>
+			</section>
 
-            <div class="w-full overflow-hidden px-6 md:px-24 py-10">
-                <div id="carrusel-track" class="flex gap-6 will-change-transform">
-                    {
-                        imagenesGaleria.map((img) => (
-                            <div class="flex-none w-[85vw] md:w-[60vw] lg:w-[45vw] h-[400px] md:h-[500px] rounded-[30px] overflow-hidden shadow-xl border border-gray-200 bg-white select-none">
-                                <img
-                                    src={img}
-                                    alt="Instalación de paneles solares Nova Solar"
-                                    class="w-full h-full object-cover hover:scale-105 transition duration-700 pointer-events-none"
-                                    loading="lazy"
-                                />
-                            </div>
-                        ))
-                    }
-                </div>
-            </div>
+			<section class="mx-auto mt-24 max-w-6xl px-5 md:px-8">
+				<div class="panel !rounded-2xl p-10 text-center md:p-16">
+					<h2 class="display titulo-luz mx-auto max-w-xl text-balance" style="font-size: var(--t-h2)">
+						¿Listo para ver los tuyos ahí arriba?
+					</h2>
+					<p class="mx-auto mt-5 max-w-prosa text-ceniza" style="font-size: var(--t-lead)">
+						Mándanos tu recibo y te decimos cuántos paneles necesita tu techo.
+					</p>
+					<a href={wa} target="_blank" rel="noopener" class="btn btn-sol mt-8">Cotizar mi proyecto</a>
+				</div>
+			</section>
+		</div>
+	</main>
 
-            <button id="btn-next" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 z-20 bg-white/90 backdrop-blur-sm text-gray-950 p-4 md:p-5 rounded-full shadow-2xl border border-gray-100 hover:bg-orange-600 hover:text-white transition-all transform hover:scale-110 focus:outline-none hidden md:flex">
-                <svg class="w-6 h-6 translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"></path></svg>
-            </button>
-        </section>
-
-        <section class="container mx-auto px-6">
-            <div class="bg-black rounded-[40px] p-12 md:p-16 text-center text-white relative overflow-hidden shadow-2xl">
-                <div class="relative z-10 max-w-2xl mx-auto space-y-8">
-                    <h2 class="text-4xl md:text-5xl font-black tracking-tighter">
-                        ¿Listo para ver tus propios paneles?
-                    </h2>
-                    <p class="text-gray-400 text-lg font-light">
-                        Cotiza hoy mismo y te decimos exactamente cuánto vas a ahorrar.
-                    </p>
-                    <a
-                        href="https://wa.me/526181699033?text=Hola%20Nova%20Solar,%20vi%20su%20galer%C3%ADa%20y%20quiero%20cotizar"
-                        target="_blank"
-                        class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-black font-extrabold text-xl px-10 py-4 rounded-full transition duration-300 shadow-xl"
-                    >
-                        Cotizar mi Proyecto
-                    </a>
-                </div>
-                
-                <div class="absolute top-0 right-0 w-96 h-96 bg-orange-600 rounded-full blur-[120px] opacity-20 translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-black text-white py-12 text-center text-sm border-t border-gray-900 mt-10">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <img src={logoImg} alt="Logo Nova Solar" class="h-8 mx-auto mb-6 object-contain opacity-80" />
-            <p class="text-gray-500">© 2026 Nova Solar Durango. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Lógica del menú móvil
-        const btn = document.getElementById("menu-btn");
-        const menu = document.getElementById("mobile-menu");
-        if (btn && menu) {
-            btn.addEventListener("click", () => menu.classList.toggle("hidden"));
-        }
-
-        // Lógica del carrusel infinito
-        const track = document.getElementById('carrusel-track');
-        const btnPrev = document.getElementById('btn-prev');
-        const btnNext = document.getElementById('btn-next');
-        let autoplayInterval;
-        let isTransitioning = false;
-
-        if (track && btnPrev && btnNext) {
-            
-            const getMoveDistance = () => {
-                const firstItem = track.children[0];
-                return firstItem.offsetWidth + 24; 
-            };
-
-            const moveNext = () => {
-                if (isTransitioning) return;
-                isTransitioning = true;
-                
-                const distance = getMoveDistance();
-                
-                track.style.transition = 'transform 0.5s ease-in-out';
-                track.style.transform = `translateX(-${distance}px)`;
-                
-                track.addEventListener('transitionend', function handler() {
-                    track.style.transition = 'none';
-                    track.style.transform = 'translateX(0)';
-                    track.appendChild(track.firstElementChild);
-                    
-                    track.removeEventListener('transitionend', handler);
-                    isTransitioning = false;
-                });
-            };
-
-            const movePrev = () => {
-                if (isTransitioning) return;
-                isTransitioning = true;
-                
-                const distance = getMoveDistance();
-                
-                track.insertBefore(track.lastElementChild, track.firstElementChild);
-                track.style.transition = 'none';
-                track.style.transform = `translateX(-${distance}px)`;
-                
-                track.offsetHeight; 
-                
-                track.style.transition = 'transform 0.5s ease-in-out';
-                track.style.transform = 'translateX(0)';
-                
-                track.addEventListener('transitionend', function handler() {
-                    track.removeEventListener('transitionend', handler);
-                    isTransitioning = false;
-                });
-            };
-
-            btnNext.addEventListener('click', () => {
-                moveNext();
-                resetAutoplay();
-            });
-
-            btnPrev.addEventListener('click', () => {
-                movePrev();
-                resetAutoplay();
-            });
-
-            const startAutoplay = () => {
-                autoplayInterval = setInterval(moveNext, 3000);
-            };
-
-            const resetAutoplay = () => {
-                clearInterval(autoplayInterval);
-                startAutoplay();
-            };
-
-            startAutoplay();
-
-            track.parentElement.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
-            track.parentElement.addEventListener('mouseleave', startAutoplay);
-        }
-    </script>
+	<Footer />
 </Layout>
+
+<style>
+	#pista::-webkit-scrollbar { display: none; }
+
+	.flecha {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		height: 2.75rem;
+		width: 2.75rem;
+		border-radius: 999px;
+		border: 1px solid rgba(237, 227, 217, 0.12);
+		color: #ede3d9;
+		transition: background-color 160ms ease, border-color 160ms ease;
+	}
+	.flecha:hover {
+		background: rgba(255, 100, 0, 0.12);
+		border-color: rgba(255, 100, 0, 0.35);
+	}
+</style>
+
+<script>
+	const pista = document.getElementById('pista');
+	const paso = () => (pista ? pista.clientWidth * 0.75 : 0);
+
+	document
+		.getElementById('btn-prev')
+		?.addEventListener('click', () => pista?.scrollBy({ left: -paso(), behavior: 'smooth' }));
+	document
+		.getElementById('btn-next')
+		?.addEventListener('click', () => pista?.scrollBy({ left: paso(), behavior: 'smooth' }));
+</script>

@@ -1,25 +1,42 @@
 ---
+import '../styles/global.css';
+
 interface Props {
-	title: string;
+	title?: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const {
+	title = 'Nova Solar Durango | Paneles solares para casa y negocio',
+	description = 'Instalamos paneles solares en Durango. Mándanos tu último recibo de CFE y te decimos exactamente cuánto vas a dejar de pagar.',
+} = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Paneles solares en Durango. Ahorra hasta el 98% en tu recibo de CFE. Cotiza tu proyecto residencial o comercial con Nova Solar." />
-		<meta name="viewport" content="width=device-width" />
-        
-		<link rel="icon" type="image/svg+xml" href="/logo.svg" />
-		
-        <meta name="generator" content={Astro.generator} />
-        
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="theme-color" content="#090604" />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:locale" content="es_MX" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap"
+		/>
 	</head>
-	<body class="bg-gray-50 text-gray-950 antialiased min-h-screen flex flex-col">
+	<body>
 		<slot />
 	</body>
 </html>

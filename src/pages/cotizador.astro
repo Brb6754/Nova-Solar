@@ -1,209 +1,195 @@
 ---
-// src/pages/cotizador.astro
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
-const telefonoEmpresa = "526181699033";
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
-const ctaBase = `https://wa.me/${telefonoEmpresa}?text=Hola%20Nova%20Solar,%20quiero%20cotizar%20paneles%20para%20mi%20casa/negocio`;
-
-const logoImg = "/logo.svg";
-const correoDestino = "contacto@novasolardgo.com";
+const correoDestino = 'contacto@novasolardgo.com';
 ---
 
-<Layout title="Cotizador Solar en Línea | Nova Solar Durango">
-    <body class="bg-gray-50 antialiased text-gray-950 min-h-screen flex flex-col">
-        
-        <nav class="fixed w-full z-50 bg-black backdrop-blur-sm border-b border-gray-900">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src={logoImg} alt="Logo Nova Solar Durango" class="h-10 md:h-12 w-auto object-contain" />
-            </a>
+<Layout
+	title="Cotizador solar en línea | Nova Solar Durango"
+	description="Calcula en un minuto cuántos paneles necesitas y cuánto dejarías de pagarle a CFE."
+>
+	<Nav activa="cotizador" />
 
-            <div class="hidden md:flex gap-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                <a href="/" class="hover:text-orange-500 transition">Inicio</a>
-                <a href="/galeria" class="hover:text-orange-500 transition">Proyectos</a>
-                <a href="/cotizador" class="text-orange-500 transition">Cotizador</a>
-                <a href="/contacto" class="hover:text-orange-500 transition">Contacto</a>
-                <a href="/citas" class="hover:text-orange-500 transition">Citas</a>
-            </div>
+	<main class="grano relative isolate overflow-hidden px-5 pb-24 pt-32 md:px-8 md:pt-40">
+		<div class="horizonte" aria-hidden="true">
+			<div class="bruma" style="top: 20%"></div>
+			<div class="arco" style="top: 28%"></div>
+		</div>
 
-            <div class="flex items-center gap-4">
-                <a
-                    href={ctaBase}
-                    target="_blank"
-                    class="bg-green-500 text-black px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-green-600 transition shadow-lg flex items-center gap-2"
-                >
-                    WhatsApp
-                </a>
-                
-                <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
-        </div>
-        
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-900">
-            <div class="px-6 py-4 space-y-2 text-center">
-                <a href="/" class="block text-orange-500 py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Inicio</a>
-                <a href="/galeria" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Proyectos</a>
-                <a href="/#cotizador" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Cotizador</a>
-                <a href="/contacto" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Contacto</a>
-                <a href="/citas" class="block text-gray-400 hover:text-white py-3 text-sm font-bold tracking-widest uppercase">Citas</a>
-            </div>
-        </div>
-    </nav>
+		<div class="relative z-10 mx-auto max-w-2xl">
+			<header class="text-center">
+				<h1 class="display titulo-luz" style="font-size: var(--t-h2)">
+					Descubre cuánto vas a ahorrar
+				</h1>
+				<p class="sobre-fuego mx-auto mt-5 max-w-prosa" style="font-size: var(--t-lead)">
+					Con lo que pagas hoy de luz nos basta para darte un primer número. Te lo mandamos por
+					WhatsApp el mismo día.
+				</p>
+			</header>
 
-        <main class="flex-grow pt-36 pb-20 container mx-auto px-6 max-w-4xl">
-            
-            <div class="text-center mb-10">
-                <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Simulador Inteligente</span>
-                <h1 class="text-4xl md:text-5xl font-black text-gray-950 tracking-tighter mb-4">
-                    Descubre cuánto vas a ahorrar
-                </h1>
-                <p class="text-lg text-gray-600 font-light">
-                    Ingresa tus datos y tu pago actual de CFE. Te enviaremos un pre-cálculo exacto a tu WhatsApp.
-                </p>
-            </div>
+			<div
+				class="panel mt-12 !rounded-2xl p-7 md:p-10"
+				style="background: linear-gradient(180deg, rgba(52,38,28,.97), rgba(24,17,11,.97));
+			       border: 1px solid rgba(255,190,120,.24);
+			       backdrop-filter: blur(12px);
+			       box-shadow: inset 0 1px 0 rgba(255,225,190,.22), 0 40px 90px -28px rgba(0,0,0,.95)"
+			>
+				<form id="cotizador-form" class="space-y-6">
+					<input type="hidden" name="_subject" value="NUEVA COTIZACIÓN WEB" />
+					<input type="hidden" name="_captcha" value="false" />
+					<input type="hidden" name="_template" value="table" />
 
-            <div class="bg-white rounded-[40px] shadow-2xl border border-gray-100 p-8 md:p-14 relative overflow-hidden">
-                
-                <form id="cotizador-form" class="space-y-6 relative z-10">
-                    
-                    <input type="hidden" name="_subject" value="NUEVA COTIZACIÓN WEB ☀️">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_template" value="table">
+					<div class="grid gap-6 md:grid-cols-2">
+						<div>
+							<label class="etiqueta" for="nombre">Nombre o empresa</label>
+							<input
+								type="text"
+								id="nombre"
+								name="Nombre"
+								required
+								class="campo"
+								placeholder="Juan Pérez"
+							/>
+						</div>
+						<div>
+							<label class="etiqueta" for="telefono">WhatsApp</label>
+							<input
+								type="tel"
+								id="telefono"
+								name="Telefono"
+								required
+								class="campo"
+								placeholder="618 123 4567"
+							/>
+						</div>
+					</div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-2">
-                            <label for="nombre" class="block text-sm font-bold text-gray-950">Nombre o Empresa *</label>
-                            <input type="text" id="nombre" name="Nombre" required class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition" placeholder="Ej. Juan Pérez">
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label for="telefono" class="block text-sm font-bold text-gray-950">WhatsApp *</label>
-                            <input type="tel" id="telefono" name="Telefono" required class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition" placeholder="618 123 4567">
-                        </div>
-                    </div>
+					<div>
+						<label class="etiqueta" for="correo">Correo electrónico</label>
+						<input
+							type="email"
+							id="correo"
+							name="Correo"
+							required
+							class="campo"
+							placeholder="juan@correo.com"
+						/>
+					</div>
 
-                    <div class="space-y-2">
-                        <label for="correo" class="block text-sm font-bold text-gray-950">Correo Electrónico *</label>
-                        <input type="email" id="correo" name="Correo" required class="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition" placeholder="juan@correo.com">
-                    </div>
+					<div>
+						<label class="etiqueta" for="pago">¿Cuánto pagas de luz al bimestre?</label>
+						<div class="relative">
+							<span
+								class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-ceniza"
+								aria-hidden="true">$</span
+							>
+							<input
+								type="number"
+								id="pago"
+								name="Pago_Bimestral"
+								required
+								min="500"
+								step="1"
+								class="campo cifra !pl-9 text-lg font-semibold"
+								placeholder="2500"
+							/>
+						</div>
+						<p class="mt-2 text-[0.85rem] text-ceniza">
+							Si pagas menos de $500 al bimestre, un sistema solar todavía no se paga solo.
+						</p>
+					</div>
 
-                    <div class="space-y-2">
-                        <label for="pago" class="block text-sm font-bold text-gray-950">¿Cuánto pagas de luz al bimestre? (MXN) *</label>
-                        <div class="relative">
-                            <span class="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500 font-bold">$</span>
-                            <input type="number" id="pago" name="Pago_Bimestral" required min="500" class="w-full bg-gray-50 border border-gray-200 rounded-2xl pl-10 pr-5 py-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:bg-white transition font-bold text-lg" placeholder="2500">
-                        </div>
-                        <p class="text-xs text-gray-500 mt-1">Si pagas menos de $500, un sistema solar podría no ser rentable aún.</p>
-                    </div>
+					<button type="submit" id="btn-submit" class="btn btn-sol w-full !py-4 !text-lg">
+						Calcular mi ahorro
+					</button>
 
-                    <button type="submit" id="btn-submit" class="w-full bg-black text-white font-black text-xl px-8 py-5 rounded-2xl transition duration-300 hover:bg-gray-800 shadow-xl flex justify-center items-center gap-3 mt-8">
-                        <span>Calcular mi Ahorro</span>
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </button>
-                    
-                    <p id="loading-text" class="text-center text-orange-600 font-bold hidden animate-pulse">Analizando tus datos y enviando reporte...</p>
-                </form>
+					<p id="loading-text" class="hidden text-center text-[0.95rem] text-ambar">
+						Calculando y enviando tu reporte…
+					</p>
+				</form>
 
-                <div id="resultado-container" class="hidden relative z-10 text-center space-y-8 animate-fade-in-up">
-                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto text-green-500 mb-4">
-                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                    </div>
-                    
-                    <h2 class="text-4xl font-black text-gray-950 tracking-tight">¡Cálculo Exitoso!</h2>
-                    <p class="text-gray-600 text-lg font-light">Hemos enviado esta información a Nova Solar. Un ingeniero revisará tu caso y te contactará por WhatsApp para confirmar los detalles.</p>
-                    
-                    <div class="bg-gray-50 rounded-3xl p-8 border border-gray-100 shadow-inner grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                        <div class="space-y-1">
-                            <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">Paneles Estimados</span>
-                            <p id="res-paneles" class="text-3xl font-black text-gray-900">0 Paneles</p>
-                        </div>
-                        <div class="space-y-1">
-                            <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">Nuevo Recibo Estimado</span>
-                            <p class="text-3xl font-black text-green-600">$57 MXN</p>
-                        </div>
-                        <div class="space-y-1 md:col-span-2 pt-4 border-t border-gray-200">
-                            <span class="text-sm font-bold text-gray-500 uppercase tracking-wider">Ahorro Anual Proyectado</span>
-                            <p id="res-ahorro" class="text-4xl font-black text-orange-600">$0 MXN</p>
-                        </div>
-                    </div>
+				<div id="resultado-container" class="hidden">
+					<h2 class="display titulo-luz" style="font-size: var(--t-h3)">Ya tenemos tu número</h2>
+					<p class="mt-3 text-[0.98rem] leading-relaxed text-ceniza">
+						Le llegó a nuestro equipo. Un ingeniero revisa tu caso y te escribe por WhatsApp para
+						confirmar los detalles de tu techo.
+					</p>
 
-                    <p class="text-xs text-gray-400 max-w-md mx-auto">* Esto es un cálculo preliminar basado en promedios. El costo y número final de paneles depende de tus hábitos de consumo y el espacio en tu techo.</p>
+					<dl class="mt-8 grid gap-6 border-t border-white/10 pt-7 sm:grid-cols-2">
+						<div>
+							<dt class="text-[0.85rem] text-ceniza">Paneles estimados</dt>
+							<dd id="res-paneles" class="cifra mt-1.5 text-2xl font-semibold text-arena">—</dd>
+						</div>
+						<div>
+							<dt class="text-[0.85rem] text-ceniza">Nuevo recibo estimado</dt>
+							<dd class="cifra mt-1.5 text-2xl font-semibold text-arena">$57</dd>
+						</div>
+						<div class="sm:col-span-2">
+							<dt class="text-[0.85rem] text-arena">Ahorro al año</dt>
+							<dd id="res-ahorro" class="cifra display mt-1.5 text-[2.75rem] text-ambar">—</dd>
+						</div>
+					</dl>
 
-                    <button onclick="location.reload()" class="mt-6 text-orange-600 font-bold hover:underline">Hacer otro cálculo</button>
-                </div>
+					<p class="mt-7 text-[0.85rem] leading-relaxed text-ceniza">
+						Es un cálculo preliminar sobre promedios. El número final depende de tus hábitos de
+						consumo y del espacio en tu techo.
+					</p>
 
-                <div class="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-full blur-[100px] opacity-10 translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
-            </div>
-        </main>
+					<button type="button" id="btn-otro" class="btn btn-humo mt-7 !py-3 !text-[0.95rem]">
+						Hacer otro cálculo
+					</button>
+				</div>
+			</div>
+		</div>
+	</main>
 
-        <footer class="bg-black text-white py-8 text-center text-sm border-t border-gray-900">
-            <p class="text-gray-500">© 2026 Nova Solar Durango. Todos los derechos reservados.</p>
-        </footer>
-
-        <script define:vars={{ correoDestino }}>
-            const form = document.getElementById('cotizador-form');
-            const resultContainer = document.getElementById('resultado-container');
-            const btnSubmit = document.getElementById('btn-submit');
-            const loadingText = document.getElementById('loading-text');
-
-            // Elementos de resultado
-            const resPaneles = document.getElementById('res-paneles');
-            const resAhorro = document.getElementById('res-ahorro');
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); // Evitar que la página se recargue
-
-                // 1. Mostrar estado de carga
-                btnSubmit.classList.add('hidden');
-                loadingText.classList.remove('hidden');
-
-                // 2. Extraer los datos del formulario
-                const formData = new FormData(form);
-                const pagoBimestral = parseFloat(formData.get('Pago_Bimestral'));
-
-                // --- MATEMÁTICAS DEL COTIZADOR (Estimación básica) ---
-                // Supongamos que 1 panel te ahorra $500 pesos al bimestre aprox.
-                let panelesNecesarios = Math.ceil(pagoBimestral / 500); 
-                // Un sistema muy chiquito mínimo necesita 2 paneles
-                if (panelesNecesarios < 2) panelesNecesarios = 2; 
-
-                const ahorroAnual = pagoBimestral * 6; // Se pagan 6 bimestres al año
-
-                // 3. Enviar el correo usando la API de FormSubmit (vía AJAX)
-                fetch(`https://formsubmit.co/ajax/${correoDestino}`, {
-                    method: "POST",
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // 4. Si se envió bien el correo, mostramos los resultados
-                    if(data.success) {
-                        // Pintar los datos calculados en la pantalla
-                        resPaneles.innerText = `${panelesNecesarios} a ${panelesNecesarios + 2} Paneles`;
-                        resAhorro.innerText = `$${ahorroAnual.toLocaleString('es-MX')} MXN`;
-
-                        // Transición de interfaz
-                        form.classList.add('hidden');
-                        resultContainer.classList.remove('hidden');
-                    } else {
-                        alert("Hubo un problema enviando tus datos. Por favor, intenta de nuevo.");
-                        btnSubmit.classList.remove('hidden');
-                        loadingText.classList.add('hidden');
-                    }
-                })
-                .catch(error => {
-                    console.log(error);
-                    alert("Error de conexión. Revisa tu internet.");
-                    btnSubmit.classList.remove('hidden');
-                    loadingText.classList.add('hidden');
-                });
-            });
-        </script>
-    </body>
+	<Footer />
 </Layout>
+
+<script define:vars={{ correoDestino }}>
+	const form = document.getElementById('cotizador-form');
+	const resultado = document.getElementById('resultado-container');
+	const btnSubmit = document.getElementById('btn-submit');
+	const cargando = document.getElementById('loading-text');
+	const resPaneles = document.getElementById('res-paneles');
+	const resAhorro = document.getElementById('res-ahorro');
+
+	document.getElementById('btn-otro')?.addEventListener('click', () => location.reload());
+
+	form?.addEventListener('submit', (e) => {
+		e.preventDefault();
+
+		btnSubmit.classList.add('hidden');
+		cargando.classList.remove('hidden');
+
+		const datos = new FormData(form);
+		const pagoBimestral = parseFloat(datos.get('Pago_Bimestral'));
+
+		// Estimación: un panel ahorra ~$500 al bimestre. Mínimo dos paneles.
+		let paneles = Math.ceil(pagoBimestral / 500);
+		if (paneles < 2) paneles = 2;
+
+		const ahorroAnual = pagoBimestral * 6; // seis bimestres al año
+
+		fetch(`https://formsubmit.co/ajax/${correoDestino}`, {
+			method: 'POST',
+			body: datos,
+			headers: { Accept: 'application/json' },
+		})
+			.then((r) => r.json())
+			.then((data) => {
+				if (!data.success) throw new Error('formsubmit');
+				resPaneles.textContent = `${paneles} a ${paneles + 2} paneles`;
+				resAhorro.textContent = `$${ahorroAnual.toLocaleString('es-MX')} MXN`;
+				form.classList.add('hidden');
+				resultado.classList.remove('hidden');
+			})
+			.catch(() => {
+				alert('No pudimos enviar tus datos. Revisa tu conexión e inténtalo otra vez.');
+				btnSubmit.classList.remove('hidden');
+				cargando.classList.add('hidden');
+			});
+	});
+</script>

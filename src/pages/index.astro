@@ -1,311 +1,312 @@
 ---
-// src/pages/index.astro - Completo
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Footer from '../components/Footer.astro';
 
-// Datos de Nova Solar
-const telefonoEmpresa = "526181699033";
-const ctaBase = `https://wa.me/${telefonoEmpresa}?text=Hola%20Nova%20Solar,%20quiero%20cotizar%20paneles%20para%20mi%20casa/negocio`;
+import fotoCasa from '../assets/fotos/imgcasa.jpeg';
+import fotoNegocio from '../assets/fotos/imgnegocio.jpeg';
+import foto1 from '../assets/fotos/img1.jpeg';
+import foto2 from '../assets/fotos/img2.jpeg';
+import foto3 from '../assets/fotos/img3.jpg';
 
-// Imágenes (Asegúrate de tenerlas en /public/images/)
-// Usa imágenes de ALTA CALIDAD y BRILLANTES para este diseño
-const heroImg = "/image.png"; 
-const casaImg = "/imgcasa.jpeg"; 
-const negocioImg = "/imgnegocio.jpeg"; 
-const logoImg = "/logo.svg";
-const img1 = "/img1.jpeg";
-const img2 = "/img2.jpeg";
-const img3 = "/img3.jpg";
+const wa = (texto: string) =>
+	`https://wa.me/526181699033?text=${encodeURIComponent(texto)}`;
+
+const razones = [
+	{
+		titulo: 'Somos de aquí',
+		texto:
+			'Si algo falla, el mismo equipo que instaló tu sistema vuelve a tu techo. Sin call center ni intermediarios.',
+		icono: 'M12 21s-7-4.8-7-10a7 7 0 1 1 14 0c0 5.2-7 10-7 10Z M12 11h.01',
+	},
+	{
+		titulo: 'Instalación certificada',
+		texto:
+			'Estructura, cableado y protecciones según norma. El inversor queda dimensionado a tu consumo real, no al catálogo.',
+		icono: 'M13 3 4 14h7v7l9-11h-7V3Z',
+	},
+	{
+		titulo: 'Cuentas claras',
+		texto:
+			'Te entregamos el número antes de firmar: cuánto cuesta, cuánto vas a ahorrar y en cuántos años se paga solo.',
+		icono: 'M4 19V5m0 14h16M8 15V9m4 6V6m4 9v-4',
+	},
+];
+
+const pasos = [
+	{
+		dia: 'Día 0',
+		titulo: 'Mandas tu recibo',
+		texto: 'Una foto del recibo de CFE por WhatsApp basta para el primer cálculo.',
+		linea: 'rgba(237,227,217,0.14)',
+		punto: 'rgba(237,227,217,0.35)',
+	},
+	{
+		dia: 'Día 3',
+		titulo: 'Visitamos tu techo',
+		texto: 'Medimos el espacio, revisamos tu tablero y confirmamos el número real.',
+		linea: 'rgba(255,100,0,0.30)',
+		punto: 'rgba(255,100,0,0.55)',
+	},
+	{
+		dia: 'Día 20',
+		titulo: 'Instalamos',
+		texto: 'Montamos estructura, paneles e inversor. Tu casa no se queda sin luz.',
+		linea: 'rgba(255,100,0,0.55)',
+		punto: '#ff6400',
+	},
+	{
+		dia: 'Día 40',
+		titulo: 'Llega tu recibo nuevo',
+		texto: 'Nosotros metemos el trámite de interconexión con CFE y te avisamos cuando queda.',
+		linea: '#fbbb35',
+		punto: '#fbbb35',
+	},
+];
+
+const proyectos = [
+	{ foto: foto1, alt: 'Paneles solares instalados en una azotea residencial en Durango' },
+	{ foto: foto2, alt: 'Estructura con paneles solares en instalación comercial' },
+	{ foto: foto3, alt: 'Arreglo de paneles solares terminado por Nova Solar' },
+];
 ---
 
-<Layout title="Paneles Solares Durango | Nova Solar - Ahorro Garantizado">
-    
-<nav class="fixed w-full z-50 bg-black backdrop-blur-sm border-b border-gray-900">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src={logoImg} alt="Logo Nova Solar Durango" class="h-10 md:h-12 w-auto object-contain" />
-            </a>
+<Layout>
+	<Nav activa="inicio" />
 
-            <div class="hidden md:flex gap-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                <a href="/" class="text-orange-500 transition">Inicio</a>
-                <a href="/galeria" class="hover:text-orange-500 transition">Proyectos</a>
-                <a href="/cotizador" class="hover:text-orange-500 transition">Cotizador</a>
-                <a href="/contacto" class="hover:text-orange-500 transition">Contacto</a>
-                <a href="/citas" class="hover:text-orange-500 transition">Citas</a>
-            </div>
+	<main id="contenido">
+		<Hero />
 
-            <div class="flex items-center gap-4">
-                <a
-                    href={ctaBase}
-                    target="_blank"
-                    class="bg-green-500 text-black px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-green-600 transition shadow-lg flex items-center gap-2"
-                >
-                    WhatsApp
-                </a>
-                
-                <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
-        </div>
-        
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-900">
-            <div class="px-6 py-4 space-y-2 text-center">
-                <a href="/" class="block text-orange-500 py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Inicio</a>
-                <a href="/galeria" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Proyectos</a>
-                <a href="/#cotizador" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Cotizador</a>
-                <a href="/contacto" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Contacto</a>
-                <a href="/citas" class="block text-gray-400 hover:text-white py-3 text-sm font-bold tracking-widest uppercase">Citas</a>
-            </div>
-        </div>
-    </nav>
+		<!-- Por qué Nova Solar -->
+		<section class="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
+			<h2 class="display max-w-3xl titulo-luz" style="font-size: var(--t-h2)">
+				Lo hacemos todo, incluido el trámite con CFE
+			</h2>
+			<p class="mt-5 max-w-prosa text-ceniza" style="font-size: var(--t-lead)">
+				Tú mandas una foto. Nosotros nos encargamos del cálculo, la instalación y el papeleo.
+			</p>
 
-    <section class="relative bg-white text-gray-950 min-h-[90vh] flex items-center pt-36 pb-20">
-        <div class="container mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                
-                <div class="space-y-8">
-                    <div class="inline-flex items-center gap-3 bg-gray-100 text-gray-700 px-6 py-2.5 rounded-full border border-gray-200">
-                        <span class="text-sm font-semibold text-gray-900">Ahorro Garantizado</span>
-                        <span class="text-sm text-gray-500">| Tu recibo de luz desde $55 pesos</span>
-                    </div>
+			<div class="mt-14 grid gap-5 md:grid-cols-3">
+				{
+					razones.map((r) => (
+						<article class="panel filo relative p-7 md:p-8">
+							<span
+								class="flex h-11 w-11 items-center justify-center rounded-xl text-brasa"
+								style="background: rgba(255,100,0,.12); border: 1px solid rgba(255,100,0,.2)"
+								aria-hidden="true"
+							>
+								<svg
+									class="h-[22px] w-[22px]"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.7"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+								>
+									<path d={r.icono} />
+								</svg>
+							</span>
+							<h3 class="mt-6 text-[1.15rem] font-semibold text-arena">{r.titulo}</h3>
+							<p class="mt-2.5 text-[0.95rem] leading-relaxed text-ceniza">{r.texto}</p>
+						</article>
+					))
+				}
+			</div>
+		</section>
 
-                   <h1 class="text-5xl md:text-7xl font-black leading-tight tracking-tighter">
-                         Ahorra hasta el 98% y <span class="text-orange-600">deja de pagarle a CFE</span>
-                    </h1>
-                    <p class="text-2xl text-gray-600 max-w-2xl font-light">
-                        Cotiza en 5 minutos y descubre cómo tu sistema de paneles <strong class="text-gray-950 font-semibold">se paga solo con lo que ahorras</strong> cada bimestre.
-                    </p>
+		<!-- Cómo funciona: línea de tiempo en días reales -->
+		<section id="como-funciona" class="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
+			<h2 class="display max-w-3xl titulo-luz" style="font-size: var(--t-h2)">
+				De tu recibo a tu instalación, en 40 días
+			</h2>
+			<p class="mt-5 max-w-prosa text-ceniza" style="font-size: var(--t-lead)">
+				Cuatro momentos. Te avisamos en cada uno.
+			</p>
 
-                    <div class="flex flex-col sm:flex-row gap-5 pt-6">
-                        <a
-                            href="/cotizador"
-                            class="inline-flex items-center justify-center gap-3 bg-black hover:bg-gray-800 text-white font-extrabold text-xl px-12 py-5 rounded-2xl transition duration-300 shadow-2xl group"
-                        >
-                            Cotizar mi Ahorro GRATIS
-                            <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                        <a href="#como-funciona" class="inline-flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-900 font-semibold px-12 py-5 rounded-2xl transition">Ver cómo funciona</a>
-                    </div>
-                </div>
+			<ol class="mt-16 grid list-none gap-10 md:grid-cols-4 md:gap-6">
+				{
+					pasos.map((p) => (
+						<li class="relative pt-7" style={`border-top: 1px solid ${p.linea}`}>
+							<span
+								class="absolute -top-[5px] left-0 h-2.5 w-2.5 rounded-full"
+								style={`background:${p.punto}; box-shadow: 0 0 10px ${p.punto}`}
+								aria-hidden="true"
+							/>
+							<p class="cifra text-[0.85rem] font-semibold text-brasa">{p.dia}</p>
+							<h3 class="mt-2 text-[1.15rem] font-semibold text-arena">{p.titulo}</h3>
+							<p class="mt-2 text-[0.95rem] leading-relaxed text-ceniza">{p.texto}</p>
+						</li>
+					))
+				}
+			</ol>
+		</section>
 
-                <div class="h-full">
-                    <img 
-                        src={heroImg} 
-                        alt="Instalación de paneles solares premium Nova Solar en Durango" 
-                        class="w-full h-full object-cover rounded-[40px] shadow-2xl" 
-                    />
-                </div>
-            </div>
-        </div>
-    </section>
+		<!-- Casa y negocio -->
+		<section class="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
+			<h2 class="display max-w-3xl titulo-luz" style="font-size: var(--t-h2)">
+				Para tu casa y para tu negocio
+			</h2>
 
-    <main class="space-y-26 pb-36 bg-white text-gray-950">
+			<div class="mt-14 space-y-5">
+				<article class="panel grid items-center gap-8 overflow-hidden md:grid-cols-2 md:gap-0">
+					<div class="order-2 p-7 md:order-1 md:p-12">
+						<h3 class="display text-arena" style="font-size: var(--t-h3)">Para tu casa</h3>
+						<p class="mt-4 max-w-prosa text-[0.98rem] leading-relaxed text-ceniza">
+							En verano, cuando el clima se lleva el recibo, tu sistema produce más. Es justo cuando
+							más lo necesitas.
+						</p>
+						<ul class="mt-6 list-none space-y-3 text-[0.95rem] text-arena">
+							<li class="flex gap-3">
+								<span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brasa" aria-hidden="true"
+								></span>
+								Tu casa sube de valor desde el día que queda instalado.
+							</li>
+							<li class="flex gap-3">
+								<span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brasa" aria-hidden="true"
+								></span>
+								Los paneles trabajan 25 años; el ahorro no se acaba cuando terminas de pagarlos.
+							</li>
+						</ul>
+						<a
+							href={wa('Hola Nova Solar, quiero cotizar paneles para mi casa')}
+							target="_blank"
+							rel="noopener"
+							class="btn btn-humo mt-8 !py-3 !text-[0.95rem]">Cotizar para mi casa</a
+						>
+					</div>
+					<div class="order-1 h-64 md:order-2 md:h-[26rem]">
+						<Image
+							src={fotoCasa}
+							alt="Paneles solares instalados en una casa de Durango"
+							widths={[480, 800, 1200]}
+							width={1200}
+							sizes="(min-width: 768px) 50vw, 100vw"
+							format="webp"
+							quality={78}
+							class="h-full w-full object-cover"
+						/>
+					</div>
+				</article>
 
-        <section id="por-que" class="py-10 bg-gray-50 rounded-[40px] md:rounded-[60px]">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-20 max-w-3xl mx-auto">
-                    <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Hacemos todo por ti</span>
-                    <h2 class="text-5xl md:text-6xl font-black mb-8 tracking-tighter text-gray-950">Dile adiós a los recibos caros de CFE</h2>
-                    <p class="text-xl text-gray-600 font-light">Nuestra misión es simple: que dejes de pagarle a CFE y empieces a ahorrar dinero. Nosotros nos encargamos de todo, tú disfruta del sol.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-    
-    <div class="bg-white p-12 rounded-3xl border border-gray-100 shadow-sm space-y-5 text-left transition hover:shadow-lg">
-        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 mb-8"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
-        <h3 class="text-3xl font-extrabold tracking-tight">Garantía Local</h3>
-        <p class="text-gray-600 font-light text-lg">Al ser de Durango, estamos cerca de ti. Te damos <strong class="text-gray-950 font-semibold">respaldo directo y rápido</strong> sin intermediarios.</p>
-    </div>
+				<article class="panel grid items-center gap-8 overflow-hidden md:grid-cols-2 md:gap-0">
+					<div class="order-2 p-7 md:p-12">
+						<h3 class="display text-arena" style="font-size: var(--t-h3)">Para tu negocio</h3>
+						<p class="mt-4 max-w-prosa text-[0.98rem] leading-relaxed text-ceniza">
+							La luz suele ser el segundo gasto fijo más grande de un local. Es el único que puedes
+							congelar de golpe.
+						</p>
+						<ul class="mt-6 list-none space-y-3 text-[0.95rem] text-arena">
+							<li class="flex gap-3">
+								<span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brasa" aria-hidden="true"
+								></span>
+								Puedes deducir el 100% de la inversión en el primer año.
+							</li>
+							<li class="flex gap-3">
+								<span class="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-brasa" aria-hidden="true"
+								></span>
+								Dimensionamos el sistema a tu demanda contratada, no a un paquete cerrado.
+							</li>
+						</ul>
+						<a
+							href={wa('Hola Nova Solar, quiero cotizar paneles para mi negocio')}
+							target="_blank"
+							rel="noopener"
+							class="btn btn-humo mt-8 !py-3 !text-[0.95rem]">Cotizar para mi negocio</a
+						>
+					</div>
+					<div class="order-1 h-64 md:h-[26rem]">
+						<Image
+							src={fotoNegocio}
+							alt="Instalación de paneles solares en un negocio de Durango"
+							widths={[480, 800, 1200]}
+							width={1200}
+							sizes="(min-width: 768px) 50vw, 100vw"
+							format="webp"
+							quality={78}
+							class="h-full w-full object-cover"
+						/>
+					</div>
+				</article>
+			</div>
+		</section>
 
-    <div class="bg-white p-12 rounded-3xl border border-gray-100 shadow-sm space-y-5 text-left transition hover:shadow-lg">
-        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 mb-8"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
-        <h3 class="text-3xl font-extrabold tracking-tight">Instalación Experta</h3>
-        <p class="text-gray-600 font-light text-lg">Nuestros técnicos certificados garantizan un <strong class="text-gray-950 font-semibold">rendimiento máximo y seguro</strong> de tu inversión.</p>
-    </div>
+		<!-- Proyectos -->
+		<section class="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-32">
+			<div class="flex flex-wrap items-end justify-between gap-6">
+				<h2 class="display titulo-luz" style="font-size: var(--t-h2)">Instalaciones recientes</h2>
+				<a
+					href="/galeria"
+					class="group inline-flex items-center gap-2 text-[0.95rem] text-arena transition-colors hover:text-brasa"
+				>
+					Ver el portafolio
+					<svg
+						class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.8"
+						aria-hidden="true"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M4 12h15m0 0-6-6m6 6-6 6"></path>
+					</svg>
+				</a>
+			</div>
 
-    <div class="bg-white p-12 rounded-3xl border border-gray-100 shadow-sm space-y-5 text-left transition hover:shadow-lg">
-        <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center text-orange-600 mb-8"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></div>
-        <h3 class="text-3xl font-extrabold tracking-tight">Inversión Transparente</h3>
-        <p class="text-gray-600 font-light text-lg">Cuentas claras desde el día uno. Te mostramos <strong class="text-gray-950 font-semibold">cuánto vas a ahorrar</strong> y en cuánto tiempo se paga tu equipo.</p>
-    </div>
+			<div class="mt-12 grid gap-4 sm:grid-cols-3">
+				{
+					proyectos.map((p) => (
+						<Image
+							src={p.foto}
+							alt={p.alt}
+							widths={[400, 700]}
+							width={700}
+							sizes="(min-width: 640px) 33vw, 100vw"
+							format="webp"
+							quality={76}
+							loading="lazy"
+							class="h-60 w-full rounded-xl border border-white/10 object-cover"
+						/>
+					))
+				}
+			</div>
+		</section>
 
-</div>
-        </section>
+		<!-- Cierre -->
+		<section class="grano relative isolate overflow-hidden px-5 pb-32 pt-24 md:px-8 md:pt-32">
+			<div class="horizonte" aria-hidden="true">
+				<div class="bruma" style="top: 58%"></div>
+				<div class="arco" style="top: 66%"></div>
+			</div>
 
-        <section id="como-funciona" class=" py-10 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-20 max-w-3xl mx-auto">
-                    <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">El Proceso</span>
-                    <h2 class="text-5xl md:text-6xl font-black mb-8 tracking-tighter text-gray-950">Tu sistema solar en 4 pasos</h2>
-                    <p class="text-xl text-gray-600 font-light">Simple, transparente y sin complicaciones. Te llevamos de la mano hacia el ahorro energético.</p>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12">
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <span class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-4xl font-black text-white">01</span>
-                        <h4 class="text-2xl font-extrabold tracking-tight">Cotiza GRATIS</h4>
-                        <p class="text-gray-600 font-light">Sólo mándanos una foto de tu recibo CFE por WhatsApp.</p>
-                    </div>
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <span class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-4xl font-black text-white">02</span>
-                        <h4 class="text-2xl font-extrabold tracking-tight">Agenda una Reunión</h4>
-                        <p class="text-gray-600 font-light">Nuestro equipo confirma detalles técnicos y te asesoramos en cualquier duda que tengas.</p>
-                    </div>
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <span class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-4xl font-black text-white">03</span>
-                        <h4 class="text-2xl font-extrabold tracking-tight">Instalación y CFE</h4>
-                        <p class="text-gray-600 font-light">Instalamos y gestionamos el trámite de interconexión con CFE.</p>
-                    </div>
-                    <div class="bg-white p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <span class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center text-4xl font-black text-white">04</span>
-                        <h4 class="text-2xl font-extrabold tracking-tight">Empieza a Ahorrar</h4>
-                        <p class="text-gray-600 font-light">¡En menos de 40 días estarás pagando el mínimo!</p>
-                    </div>
-                </div>
-                
-                <div class="mt-20 text-center">
-                    <a href={ctaBase} target="_blank" class="inline-block bg-black text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-gray-800 transition shadow-lg">Mandar Recibo CFE</a>
-                </div>
-            </div>
-        </section>
+			<div class="relative z-10 mx-auto max-w-3xl text-center">
+				<h2 class="display titulo-luz mx-auto max-w-2xl text-balance" style="font-size: var(--t-h2)">
+					Manda una foto de tu recibo. Nosotros hacemos el resto.
+				</h2>
+				<p class="mx-auto mt-6 max-w-prosa text-ceniza" style="font-size: var(--t-lead)">
+					Te contestamos con el cálculo de tu ahorro y lo que cuesta el sistema. Sin compromiso.
+				</p>
+				<div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+					<a href="/cotizador" class="btn btn-humo w-full sm:w-auto">Usar el cotizador</a>
+					<a
+						href={wa('Hola Nova Solar, te mando mi recibo de CFE para cotizar')}
+						target="_blank"
+						rel="noopener"
+						class="btn btn-sol w-full sm:w-auto"
+					>
+						<svg class="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<path
+								d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"
+							></path>
+						</svg>
+						Mandar mi recibo
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
 
-        <section id="soluciones" class="py-10 bg-gray-50 rounded-[40px] md:rounded-[60px]">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-20 max-w-3xl mx-auto">
-                    <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Nuestras Soluciones</span>
-                    <h2 class="text-5xl md:text-6xl font-black mb-8 tracking-tighter text-gray-950">Energía Solar a tu medida</h2>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24 border border-gray-100 p-12 rounded-[30px] bg-white shadow-sm transition hover:shadow-lg">
-                    <div class="space-y-6">
-                        <span class="text-6xl"></span>
-                        <h3 class="text-4xl font-black tracking-tight">Para tu Hogar</h3>
-                        <p class="text-gray-600 text-lg font-light">Protege la economía familiar. Especialmente en verano, <strong class="text-gray-950 font-semibold">tu recibo de luz puede bajar hasta los $55 pesos.</strong> Garantizado.</p>
-                        <ul class="space-y-3 text-gray-700 text-base font-medium">
-                            <li class="flex items-center gap-3"><span class="text-green-600 font-bold">Plusvalía inmediata</span> a tu propiedad.</li>
-                            <li class="flex items-center gap-3"><span class="text-green-600 font-bold">Ahorro asegurado</span> de por vida.</li>
-                        </ul>
-                        <a href={ctaBase} target="_blank" class="inline-block bg-orange-600 text-white px-8 py-3 rounded-full font-bold hover:bg-orange-700 transition">Cotizar Residencial</a>
-                    </div>
-                    <div>
-                        <img src={casaImg} alt="Instalación de paneles solares residenciales Nova Solar Durango" class="rounded-3xl shadow-xl w-full h-80 object-cover" />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mb-24 border border-gray-100 p-12 rounded-[30px] bg-white shadow-sm transition hover:shadow-lg">
-                    <div class="md:order-last space-y-6">
-                        <span class="text-6xl"></span>
-                        <h3 class="text-4xl font-black tracking-tight">Para tu Negocio</h3>
-                        <p class="text-gray-600 text-lg font-light">Reduce drásticamente los costos operativos. Recupera tu inversión rápido y <strong class="text-gray-950 font-semibold">deduce al 100% tu inversión</strong> en el primer año.</p>
-                        <ul class="space-y-3 text-gray-700 text-base font-medium">
-                            <li class="flex items-center gap-3"> <span class="text-green-600 font-bold">Recuperación de inversión</span> acelerada.</li>
-                            <li class="flex items-center gap-3"> <span class="text-green-600 font-bold">Deducción de impuestos</span> al 100%.</li>
-                        </ul>
-                        <a href={ctaBase} target="_blank" class="inline-block bg-orange-600 text-white px-8 py-3 rounded-full font-bold hover:bg-orange-700 transition">Cotizar Comercial</a>
-                    </div>
-                    <div>
-                        <img src={negocioImg} alt="Instalación de paneles solares comerciales Nova Solar Durango" class="rounded-3xl shadow-xl w-full h-80 object-cover" />
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-                    <img src={img1} alt="Proyectos Nova Solar DGO" class="rounded-2xl shadow-sm h-60 w-full object-cover" />
-                    <img src={img2} alt="Proyectos Nova Solar DGO" class="rounded-2xl shadow-sm h-60 w-full object-cover" />
-                    <img src={img3} alt="Proyectos Nova Solar DGO" class="rounded-2xl shadow-sm h-60 w-full object-cover" />
-                </div>
-            </div>
-        </section>
-
-        <section id="testimonios" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-20 max-w-3xl mx-auto">
-                    <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Prueba Real de Ahorro</span>
-                    <h2 class="text-5xl md:text-6xl font-black mb-8 tracking-tighter text-gray-950">Nuestros clientes ya ganan</h2>
-                    <p class="text-xl text-gray-600 font-light">Historias reales de familias y empresarios que decidieron dejar de pagar a CFE. ¡Tu ahorro empieza hoy!</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="bg-gray-50 p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <p class="text-gray-700 italic text-xl font-light">"Me daba miedo la inversión, pero Nova Solar me lo hizo súper fácil. Mi recibo pasó de miles a muy poco."</p>
-                        <div class="flex gap-6 items-center pt-4">
-                            <div class="text-center text-xs">
-                                <span class="block font-semibold text-gray-500 uppercase tracking-wider">Pago anterior</span>
-                                <span class="text-3xl font-black text-red-600 leading-none">$6,800</span>
-                            </div>
-                            <div class="text-center text-xs">
-                                <span class="block font-semibold text-gray-500 uppercase tracking-wider">Pago nuevo</span>
-                                <span class="text-3xl font-black text-green-600 leading-none">$57</span>
-                            </div>
-                        </div>
-                        <p class="text-sm font-semibold text-gray-950">— Familia Reyes, Durango</p>
-                    </div>
-                    <div class="bg-gray-50 p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <p class="text-gray-700 italic text-xl font-light">"Reduje costos fijos drásticamente. Mi negocio es mucho más rentable."</p>
-                        <div class="flex gap-6 items-center pt-4">
-                            <div class="text-center text-xs">
-                                <span class="block font-semibold text-gray-500 uppercase tracking-wider">Pago anterior</span>
-                                <span class="text-3xl font-black text-red-600 leading-none">$18,400</span>
-                            </div>
-                            <div class="text-center text-xs">
-                                <span class="block font-semibold text-gray-500 uppercase tracking-wider">Pago nuevo</span>
-                                <span class="text-3xl font-black text-green-600 leading-none">$120</span>
-                            </div>
-                        </div>
-                        <p class="text-sm font-semibold text-gray-950">— Minisúper, Durango</p>
-                    </div>
-                    <div class="bg-gray-50 p-10 rounded-3xl border border-gray-100 shadow-sm transition hover:shadow-lg space-y-6">
-                        <p class="text-gray-700 italic text-xl font-light">"Nova Solar me ayudó a reducir mis costos de energía en un 90%."</p>
-                        <div class="flex gap-6 items-center pt-4">
-                            <div class="text-center text-xs">
-                                <span class="block font-semibold text-gray-500 uppercase tracking-wider">Pago anterior</span>
-                                <span class="text-3xl font-black text-red-600 leading-none">$4,200</span>
-                            </div>
-                            <div class="text-center text-xs">
-                                <span class="block font-semibold text-gray-500 uppercase tracking-wider">Pago nuevo</span>
-                                <span class="text-3xl font-black text-green-600 leading-none">$55</span>
-                            </div>
-                        </div>
-                        <p class="text-sm font-semibold text-gray-950">— Juan M. García, Durango</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-20 bg-white text-center border-t border-gray-100 mt-20">
-            <div class="container mx-auto px-6 max-w-3xl space-y-8">
-                <h2 class="text-5xl md:text-6xl font-black tracking-tighter text-gray-950">¿Listo para dejar de pagarle a CFE?</h2>
-                <p class="text-xl text-gray-600 font-light">Cotiza gratis hoy mismo y descubre cuánto puedes ahorrar. No te pedimos inversión inicial, tu ahorro financia tus paneles.</p>
-                <a 
-                    href={ctaBase} 
-                    target="_blank" 
-                    class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-black font-extrabold text-xl px-12 py-5 rounded-full transition duration-300 shadow-xl group"
-                >
-                    Cotizar por WhatsApp
-                </a>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="bg-black text-white py-16 text-center text-sm border-t border-gray-900 mt-20">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <img src={logoImg} alt="Logo Nova Solar" class="h-10 mx-auto mb-8 object-contain" />
-            <p class="text-gray-400">© 2026 Nova Solar Durango. Todos los derechos reservados.</p>
-            <p class="text-gray-600 text-xs mt-3">Blvd. José María Patoni 423, Carlos Luna, 34205 Durango, Dgo.</p>
-        </div>
-    </footer>
-
+	<Footer />
 </Layout>
-
-<script>
-    // Lógica del Menú Móvil
-    const btn = document.getElementById("menu-btn");
-    const menu = document.getElementById("mobile-menu");
-
-    if (btn && menu) {
-        btn.addEventListener("click", () => {
-            menu.classList.toggle("hidden");
-        });
-    }
-</script>

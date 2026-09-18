@@ -1,0 +1,54 @@
+---
+const wa =
+	'https://wa.me/526181699033?text=Hola%20Nova%20Solar%2C%20quiero%20cotizar%20paneles%20solares';
+const anio = new Date().getFullYear();
+---
+
+<footer class="relative mt-32 border-t border-white/10">
+	<div class="mx-auto max-w-6xl px-5 py-16 md:px-8">
+		<div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+			<div>
+				<img src="/logo.svg" alt="Nova Solar" class="h-11 w-auto" width="184" height="110" />
+				<p class="mt-5 max-w-sm text-[0.95rem] leading-relaxed text-ceniza">
+					Instalamos y damos servicio a sistemas solares en Durango. Nosotros hacemos el trámite de
+					interconexión con CFE.
+				</p>
+				<a href={wa} target="_blank" rel="noopener" class="btn btn-sol mt-7 !py-3 !text-[0.9rem]">
+					Cotizar por WhatsApp
+				</a>
+			</div>
+
+			<nav aria-label="Secciones">
+				<h2 class="text-[0.95rem] font-semibold text-arena">Secciones</h2>
+				<ul class="mt-4 list-none space-y-2.5 text-[0.95rem]">
+					<li><a href="/" class="text-ceniza transition-colors hover:text-arena">Inicio</a></li>
+					<li><a href="/galeria" class="text-ceniza transition-colors hover:text-arena">Proyectos</a></li>
+					<li><a href="/cotizador" class="text-ceniza transition-colors hover:text-arena">Cotizador</a></li>
+					<li><a href="/contacto" class="text-ceniza transition-colors hover:text-arena">Contacto</a></li>
+					<li><a href="/citas" class="text-ceniza transition-colors hover:text-arena">Agendar cita</a></li>
+				</ul>
+			</nav>
+
+			<div>
+				<h2 class="text-[0.95rem] font-semibold text-arena">Contacto</h2>
+				<ul class="mt-4 list-none space-y-2.5 text-[0.95rem] text-ceniza">
+					<li>
+						<a href="tel:+526181699033" class="transition-colors hover:text-arena">(618) 169-9033</a>
+					</li>
+					<li>
+						<a href="mailto:nsolardgo@gmail.com" class="transition-colors hover:text-arena">
+							nsolardgo@gmail.com
+						</a>
+					</li>
+					<li class="pt-1 leading-relaxed">
+						C. México 205, Guadalupe<br />34220 Durango, Dgo.
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<p class="mt-14 border-t border-white/10 pt-7 text-sm text-ceniza">
+			© {anio} Nova Solar Durango
+		</p>
+	</div>
+</footer>

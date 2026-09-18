@@ -1,237 +1,154 @@
 ---
-// src/pages/citas.astro
 import Layout from '../layouts/Layout.astro';
-import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
-const telefonoEmpresa = "526181699033";
-const ctaBase = `https://wa.me/${telefonoEmpresa}?text=Hola%20Nova%20Solar,%20quiero%20cotizar%20paneles%20para%20mi%20casa/negocio`;
-const logoImg = "/logo.svg";
-
-// AQUI PONES TUS LINKS DE CALENDLY REALES
-const linkOficina = "https://calendly.com/contacto-novasolardgo/30min";
-const linkOnline = "https://calendly.com/contacto-novasolardgo/asesoria-online-nova-solar";
+// Calendly pintado con la paleta del sitio para que el iframe no salga blanco.
+const tema = 'background_color=150f0a&text_color=ede3d9&primary_color=ff6400';
+const linkOficina = `https://calendly.com/brunoruedabeta/30min?${tema}`;
+const linkOnline = `https://calendly.com/brunoruedabeta/online?${tema}`;
 ---
 
-<Layout title="Agendar Cita | Nova Solar Durango">
-    
-    <nav class="fixed w-full z-50 bg-black backdrop-blur-sm border-b border-gray-900">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="/" class="flex items-center">
-                <img src={logoImg} alt="Logo Nova Solar Durango" class="h-10 md:h-12 w-auto object-contain" />
-            </a>
+<Layout
+	title="Agendar cita | Nova Solar Durango"
+	description="Aparta 30 minutos con un asesor, en nuestra oficina de Guadalupe o por videollamada."
+>
+	<Nav activa="citas" />
 
-            <div class="hidden md:flex gap-8 text-xs font-semibold uppercase tracking-widest text-gray-400">
-                <a href="/" class="hover:text-orange-500 transition">Inicio</a>
-                <a href="/galeria" class="hover:text-orange-500 transition">Proyectos</a>
-                <a href="/cotizador" class="hover:text-orange-500 transition">Cotizador</a>
-                <a href="/contacto" class="hover:text-orange-500 transition">Contacto</a>
-                <a href="/citas" class="text-orange-500 transition">Citas</a>
-            </div>
+	<main class="grano relative isolate overflow-hidden px-5 pb-24 pt-32 md:px-8 md:pt-40">
+		<div class="horizonte" aria-hidden="true">
+			<div class="bruma" style="top: 16%"></div>
+			<div class="arco" style="top: 24%"></div>
+		</div>
 
-            <div class="flex items-center gap-4">
-                <a
-                    href={ctaBase}
-                    target="_blank"
-                    class="bg-green-500 text-black px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest hover:bg-green-600 transition shadow-lg inline-block"
-                >
-                    WhatsApp
-                </a>
-            
-                <button id="menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
-            </div>
-        </div>
-    
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-gray-900">
-            <div class="px-6 py-4 space-y-2 text-center">
-                <a href="/" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Inicio</a>
-                <a href="/galeria" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Proyectos</a>
-                <a href="/cotizador" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Cotizador</a>
-                <a href="/contacto" class="block text-gray-400 hover:text-white py-3 border-b border-gray-900 text-sm font-bold tracking-widest uppercase">Contacto</a>
-                <a href="/citas" class="block text-orange-500 py-3 text-sm font-bold tracking-widest uppercase">Citas</a>
-            </div>
-        </div>
-    </nav>
+		<div class="relative z-10 mx-auto max-w-6xl">
+			<header class="max-w-2xl">
+				<h1 class="display titulo-luz" style="font-size: var(--t-h2)">Agenda tu asesoría</h1>
+				<p class="sobre-fuego mt-5 max-w-prosa" style="font-size: var(--t-lead)">
+					Treinta minutos para revisar tu consumo y darte el número real de tu proyecto.
+				</p>
 
-    <main class="flex-grow pt-36 pb-20"> 
-        
-        <section class="container mx-auto px-6 mb-16 text-center">
-            <span class="text-orange-600 font-bold tracking-widest text-xs uppercase mb-4 block">Asesoría Personalizada</span>
-            <h1 class="text-5xl md:text-6xl font-black text-gray-950 tracking-tighter mb-8">
-                Agenda tu cita
-            </h1>
-            
-            <div class="inline-flex bg-gray-200 rounded-full p-1.5 relative mb-6 shadow-inner">
-                <div id="slider" class="absolute left-1.5 top-1.5 bottom-1.5 w-[calc(50%-6px)] bg-white rounded-full shadow-md transition-transform duration-300 ease-in-out"></div>
-                
-                <button id="btn-oficina" class="relative z-10 px-8 py-3 text-sm font-extrabold tracking-wide transition-colors duration-300 text-gray-950 w-40">
-                    En Oficina
-                </button>
-                <button id="btn-online" class="relative z-10 px-8 py-3 text-sm font-extrabold tracking-wide transition-colors duration-300 text-gray-500 w-40">
-                    Online
-                </button>
-            </div>
+				<div
+					class="mt-8 inline-flex rounded-full border border-white/10 p-1"
+					role="tablist"
+					aria-label="Modalidad de la cita"
+				>
+					<button
+						id="btn-oficina"
+						type="button"
+						role="tab"
+						aria-selected="true"
+						class="modo modo-activo"
+					>
+						En oficina
+					</button>
+					<button id="btn-online" type="button" role="tab" aria-selected="false" class="modo">
+						Por videollamada
+					</button>
+				</div>
+			</header>
 
-            <p id="desc-texto" class="text-xl text-gray-600 font-light max-w-2xl mx-auto transition-opacity duration-300">
-                Te esperamos en nuestra sucursal para armar tu proyecto a la medida.
-            </p>
-        </section>
+			<div class="mt-12 grid gap-6 lg:grid-cols-[22rem_1fr]">
+				<aside class="panel h-max p-7 lg:sticky lg:top-28">
+					<h2 class="display text-arena" style="font-size: var(--t-h3)">Qué vas a sacar</h2>
 
-        <section class="container mx-auto px-6 max-w-6xl">
-            <div class="flex flex-col lg:flex-row gap-12 items-start">
-                
-                <div class="w-full lg:w-1/3 bg-white p-10 rounded-[30px] shadow-xl border border-gray-100 lg:sticky lg:top-32 relative overflow-hidden transition-all duration-300" id="detalles-card">
-                    
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-500 opacity-5 rounded-bl-[80px] pointer-events-none"></div>
+					<ul class="mt-6 list-none space-y-6">
+						<li>
+							<h3 class="font-semibold text-arena">El cálculo exacto</h3>
+							<p class="mt-1 text-[0.93rem] leading-relaxed text-ceniza">
+								Revisamos tu consumo real y el retorno de la inversión, no un promedio.
+							</p>
+						</li>
+						<li>
+							<h3 id="titulo-lugar" class="font-semibold text-arena">Dónde nos vemos</h3>
+							<p id="texto-lugar" class="mt-1 text-[0.93rem] leading-relaxed text-ceniza">
+								Oficina central: C. México 205, Guadalupe, Durango.
+							</p>
+						</li>
+					</ul>
 
-                    <div class="mb-8 relative z-10">
-                        <h3 class="text-3xl font-extrabold text-gray-950 tracking-tight mb-2">Detalles</h3>
-                        <div class="h-1.5 w-12 bg-orange-600 rounded-full"></div>
-                    </div>
-                    
-                    <ul class="space-y-6 text-gray-600 mb-10 relative z-10">
-                        <li class="flex items-start gap-4">
-                            <div class="w-10 h-10 bg-orange-100 rounded-2xl text-orange-600 flex items-center justify-center flex-shrink-0 mt-1">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <div>
-                                <span class="block font-bold text-gray-950 text-lg">Cálculo exacto</span>
-                                <span class="font-light text-sm text-gray-500">Analizaremos tu consumo y retorno de inversión real.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-4">
-                            <div class="w-10 h-10 bg-orange-100 rounded-2xl text-orange-600 flex items-center justify-center flex-shrink-0 mt-1">
-                                <svg id="icon-lugar" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            </div>
-                            <div>
-                                <span id="titulo-lugar" class="block font-bold text-gray-950 text-lg">Ubicación</span>
-                                <span id="texto-lugar" class="font-light text-sm text-gray-500">Oficina Central: C. México 205, Guadalupe, Durango.</span>
-                            </div>
-                        </li>
-                    </ul>
-                    
-                    <div class="p-6 bg-gray-50 rounded-2xl border border-gray-100 relative z-10">
-                        <p class="text-xs text-orange-600 font-bold uppercase tracking-widest mb-2">Importante</p>
-                        <p id="alerta-texto" class="text-sm text-gray-700 font-light">
-                            La asesoría dura unos 30 minutos. Por favor, <strong>trae tu último recibo de luz</strong> (impreso o en tu celular) para poder cotizarte correctamente.
-                        </p>
-                    </div>
-                </div>
+					<div class="mt-8 rounded-xl p-5" style="background: rgba(255,100,0,.08); border: 1px solid rgba(255,100,0,.18)">
+						<p id="alerta-texto" class="text-[0.93rem] leading-relaxed text-arena">
+							Trae tu último recibo de luz, impreso o en el celular. Sin él no podemos cotizarte bien.
+						</p>
+					</div>
+				</aside>
 
-                <div class="w-full lg:w-2/3 bg-white rounded-[30px] shadow-xl border border-gray-100 overflow-hidden relative" style="min-height: 700px;">
-                    
-                    <div class="absolute inset-0 flex items-center justify-center bg-gray-50 -z-10">
-                        <span class="text-gray-400 text-sm font-semibold tracking-widest uppercase animate-pulse">Cargando calendario...</span>
-                    </div>
+				<div class="panel overflow-hidden !rounded-2xl">
+					<div id="calendly-container" class="min-h-[700px]">
+						<div class="calendly-inline-widget" data-url={linkOficina} style="min-width:320px;height:700px;">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 
-                    <div id="calendly-container" class="w-full h-full">
-                        <div class="calendly-inline-widget" data-url={linkOficina} style="min-width:320px;height:700px;"></div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-black text-white py-12 text-center text-sm border-t border-gray-900 mt-10">
-        <div class="container mx-auto px-6 max-w-5xl">
-            <img src={logoImg} alt="Logo Nova Solar" class="h-8 mx-auto mb-6 object-contain opacity-80" />
-            <p class="text-gray-500">© 2026 Nova Solar Durango. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-
-    <script define:vars={{ linkOficina, linkOnline }}>
-        // Menú Móvil
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (menuBtn && mobileMenu) {
-            menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        }
-
-        // Lógica del Toggle Switch
-        const btnOficina = document.getElementById('btn-oficina');
-        const btnOnline = document.getElementById('btn-online');
-        const slider = document.getElementById('slider');
-        
-        // Textos dinámicos
-        const descTexto = document.getElementById('desc-texto');
-        const tituloLugar = document.getElementById('titulo-lugar');
-        const textoLugar = document.getElementById('texto-lugar');
-        const iconLugar = document.getElementById('icon-lugar');
-        const alertaTexto = document.getElementById('alerta-texto');
-        
-        // Contenedor del Calendario
-        const calendlyContainer = document.getElementById('calendly-container');
-
-        // SVG Iconos
-        const svgPin = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>';
-        const svgVideo = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>';
-
-        // Función para recargar Calendly
-        function updateCalendly(url) {
-            calendlyContainer.innerHTML = ''; // Limpiar actual
-            const newWidget = document.createElement('div');
-            newWidget.className = 'calendly-inline-widget';
-            newWidget.setAttribute('data-url', url);
-            newWidget.style.minWidth = '320px';
-            newWidget.style.height = '700px';
-            calendlyContainer.appendChild(newWidget);
-            // Reiniciar script de Calendly
-            if (window.Calendly) {
-                window.Calendly.initInlineWidget({
-                    url: url,
-                    parentElement: newWidget
-                });
-            }
-        }
-
-        btnOnline.addEventListener('click', () => {
-            // Mover slider
-            slider.style.transform = 'translateX(100%)';
-            
-            // Cambiar colores botones
-            btnOnline.classList.replace('text-gray-500', 'text-gray-950');
-            btnOficina.classList.replace('text-gray-950', 'text-gray-500');
-
-            // Cambiar textos
-            descTexto.style.opacity = 0;
-            setTimeout(() => {
-                descTexto.innerHTML = 'Conéctate desde tu computadora o celular para asesorarte en línea.';
-                tituloLugar.innerHTML = 'Videollamada';
-                textoLugar.innerHTML = 'Te enviaremos un link de Google Meet al confirmar tu cita.';
-                iconLugar.innerHTML = svgVideo;
-                alertaTexto.innerHTML = 'La asesoría dura unos 30 minutos. Por favor, ten a la mano tu <strong>último recibo de luz</strong> (en PDF o foto) para poder cotizarte.';
-                descTexto.style.opacity = 1;
-            }, 150);
-
-            // Actualizar Calendario
-            updateCalendly(linkOnline);
-        });
-
-        btnOficina.addEventListener('click', () => {
-            // Mover slider
-            slider.style.transform = 'translateX(0)';
-            
-            // Cambiar colores botones
-            btnOficina.classList.replace('text-gray-500', 'text-gray-950');
-            btnOnline.classList.replace('text-gray-950', 'text-gray-500');
-
-            // Cambiar textos
-            descTexto.style.opacity = 0;
-            setTimeout(() => {
-                descTexto.innerHTML = 'Te esperamos en nuestra sucursal para armar tu proyecto a la medida.';
-                tituloLugar.innerHTML = 'Ubicación';
-                textoLugar.innerHTML = 'Oficina Central: Blvd. José María Patoni 423, Carlos Luna, 34205 Durango, Dgo.';
-                iconLugar.innerHTML = svgPin;
-                alertaTexto.innerHTML = 'La asesoría dura unos 30 minutos. Por favor, <strong>trae tu último recibo de luz</strong> (impreso o en celular) para cotizarte correctamente.';
-                descTexto.style.opacity = 1;
-            }, 150);
-
-            // Actualizar Calendario
-            updateCalendly(linkOficina);
-        });
-    </script>
+	<Footer />
 </Layout>
+
+<style>
+	.modo {
+		border-radius: 999px;
+		padding: 0.6rem 1.25rem;
+		font-size: 0.9rem;
+		font-weight: 600;
+		color: #8c8078;
+		transition: color 160ms ease, background-color 160ms ease;
+	}
+	.modo:hover { color: #ede3d9; }
+	.modo-activo {
+		background: rgba(255, 245, 235, 0.08);
+		color: #ede3d9;
+	}
+</style>
+
+<script is:inline async src="https://assets.calendly.com/assets/external/widget.js"></script>
+
+<script define:vars={{ linkOficina, linkOnline }}>
+	const btnOficina = document.getElementById('btn-oficina');
+	const btnOnline = document.getElementById('btn-online');
+	const contenedor = document.getElementById('calendly-container');
+	const tituloLugar = document.getElementById('titulo-lugar');
+	const textoLugar = document.getElementById('texto-lugar');
+	const alerta = document.getElementById('alerta-texto');
+
+	function cargarCalendly(url) {
+		contenedor.innerHTML = '';
+		const widget = document.createElement('div');
+		widget.className = 'calendly-inline-widget';
+		widget.style.minWidth = '320px';
+		widget.style.height = '700px';
+		contenedor.appendChild(widget);
+		if (window.Calendly) {
+			window.Calendly.initInlineWidget({ url, parentElement: widget });
+		} else {
+			widget.setAttribute('data-url', url);
+		}
+	}
+
+	function seleccionar(activo, inactivo) {
+		activo.classList.add('modo-activo');
+		activo.setAttribute('aria-selected', 'true');
+		inactivo.classList.remove('modo-activo');
+		inactivo.setAttribute('aria-selected', 'false');
+	}
+
+	btnOnline?.addEventListener('click', () => {
+		seleccionar(btnOnline, btnOficina);
+		tituloLugar.textContent = 'Dónde nos vemos';
+		textoLugar.textContent = 'Te mandamos el link de la videollamada al confirmar la cita.';
+		alerta.textContent =
+			'Ten a la mano tu último recibo de luz, en PDF o foto. Sin él no podemos cotizarte bien.';
+		cargarCalendly(linkOnline);
+	});
+
+	btnOficina?.addEventListener('click', () => {
+		seleccionar(btnOficina, btnOnline);
+		tituloLugar.textContent = 'Dónde nos vemos';
+		textoLugar.textContent = 'Oficina central: C. México 205, Guadalupe, Durango.';
+		alerta.textContent =
+			'Trae tu último recibo de luz, impreso o en el celular. Sin él no podemos cotizarte bien.';
+		cargarCalendly(linkOficina);
+	});
+</script>

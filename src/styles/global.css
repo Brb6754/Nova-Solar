@@ -1,3 +1,328 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* =========================================================
+   Nova Solar — sistema de diseño
+   Naranja y ámbar tomados del logo real (public/logo.svg).
+   ========================================================= */
+
+@layer base {
+  :root {
+    --noche: #090604;
+    --carbon: #150f0a;
+    --brasa: #ff6400;
+    --ambar: #fbbb35;
+    --arena: #ede3d9;
+    --ceniza: #8c8078;
+
+    --linea: rgba(237, 227, 217, 0.10);
+    --linea-calida: rgba(255, 100, 0, 0.22);
+
+    /* Escala tipográfica fluida */
+    --t-display: clamp(2.75rem, 1.55rem + 5.3vw, 5.75rem);
+    --t-h2: clamp(2rem, 1.4rem + 2.6vw, 3.375rem);
+    --t-h3: clamp(1.3rem, 1.15rem + 0.7vw, 1.625rem);
+    --t-lead: clamp(1.0625rem, 1rem + 0.45vw, 1.25rem);
+    --t-body: 1.0625rem;
+  }
+
+  html {
+    background-color: var(--noche);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--noche);
+    color: var(--arena);
+    font-family: 'Archivo', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: var(--t-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--brasa);
+    color: #090604;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ambar);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+@layer components {
+
+  /* ---------- Tipografía ---------- */
+
+  /* Display: Archivo en corte expandido. Una sola familia; el contraste
+     viene del ancho y del peso, no de meter un segundo tipo. */
+  .display {
+    font-variation-settings: 'wdth' 112;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+  }
+
+  .titulo-luz { color: var(--arena); }
+  .titulo-fuego { color: var(--brasa); }
+
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .titulo-luz {
+      background-image: linear-gradient(176deg, #fffaf5 0%, var(--arena) 42%, #9c8d82 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .titulo-fuego {
+      background-image: linear-gradient(176deg, var(--ambar) 0%, var(--brasa) 62%, #d24f00 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  /* Texto que cae encima del resplandor: el gris secundario se pierde ahí,
+     así que sube de tono y se apoya en una sombra para separarse del naranja. */
+  .sobre-fuego {
+    color: #e4d9ce;
+    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.75), 0 0 3px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Cifras de dinero: tabulares, para que alineen en columna. */
+  .cifra {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* ---------- El amanecer: arco delgado + bruma ---------- */
+
+  /* La máscara va aquí y no en el arco: si se le pone al círculo, le recorta
+     el box-shadow (el resplandor vive fuera del border-box). */
+  .horizonte {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+  }
+
+  /* El arco es el borde superior de un círculo enorme: solo se ve la cresta. */
+  .arco {
+    position: absolute;
+    left: 50%;
+    translate: -50% 0;
+    width: 170vw;
+    max-width: 2400px;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    border-top: 1.5px solid rgba(255, 224, 176, 0.98);
+    box-shadow:
+      0 0 12px 1px rgba(255, 180, 90, 0.80),
+      0 0 45px 6px rgba(255, 120, 20, 0.55),
+      0 0 130px 28px rgba(255, 100, 0, 0.32),
+      0 0 300px 90px rgba(255, 90, 0, 0.16);
+  }
+
+  /* En el hero la altura del contenido cambia mucho entre móvil y escritorio,
+     así que el arco se posiciona por breakpoint y no con un valor fijo:
+     en móvil tiene que quedar por DEBAJO de los botones, no cruzándolos. */
+  .horizonte-hero .arco { top: 57%; }
+  .horizonte-hero .bruma { top: 49%; }
+
+  @media (min-width: 768px) {
+    .horizonte-hero .arco { top: 41%; }
+    .horizonte-hero .bruma { top: 34%; }
+  }
+
+  /* Bruma cálida que sube desde el horizonte. */
+  .bruma {
+    position: absolute;
+    left: 50%;
+    translate: -50% -50%;
+    width: 130vw;
+    max-width: 1700px;
+    aspect-ratio: 2.1 / 1;
+    border-radius: 50%;
+    background: radial-gradient(
+      closest-side,
+      rgba(255, 150, 45, 0.34) 0%,
+      rgba(255, 110, 5, 0.20) 42%,
+      rgba(255, 100, 0, 0.07) 68%,
+      transparent 100%
+    );
+    filter: blur(60px);
+  }
+
+  /* Grano: mata el banding de los degradados grandes sobre negro. */
+  .grano::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- Superficies ---------- */
+
+  .panel {
+    background: linear-gradient(180deg, rgba(255, 245, 235, 0.035) 0%, rgba(255, 245, 235, 0.012) 100%);
+    border: 1px solid var(--linea);
+    border-radius: 18px;
+  }
+
+  /* Filo naranja arriba a la izquierda (de la referencia Darken). */
+  .filo::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 26px;
+    width: 64px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ambar), var(--brasa) 60%, transparent);
+    border-radius: 2px;
+  }
+
+  .pastilla {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.95rem 0.4rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--linea-calida);
+    background: linear-gradient(180deg, rgba(255, 100, 0, 0.10), rgba(255, 100, 0, 0.03));
+    font-size: 0.8125rem;
+    color: var(--arena);
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  /* ---------- Botones ---------- */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0.95rem 1.6rem;
+    transition: transform 160ms ease, box-shadow 220ms ease,
+                background-color 160ms ease, border-color 160ms ease;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .btn-sol {
+    background: linear-gradient(180deg, #ff8425 0%, var(--brasa) 55%, #e05400 100%);
+    color: #180a00;
+    border: none;
+    box-shadow: 0 0 0 1px rgba(255, 160, 60, 0.35), 0 10px 30px -12px rgba(255, 100, 0, 0.9);
+  }
+
+  .btn-sol:hover {
+    box-shadow: 0 0 0 1px rgba(255, 190, 110, 0.5), 0 14px 40px -12px rgba(255, 100, 0, 1);
+    transform: translateY(-1px);
+  }
+
+  .btn-humo {
+    background: rgba(255, 245, 235, 0.05);
+    border: 1px solid var(--linea);
+    color: var(--arena);
+  }
+
+  .btn-humo:hover {
+    background: rgba(255, 245, 235, 0.09);
+    border-color: var(--linea-calida);
+  }
+
+  /* ---------- Formularios ---------- */
+
+  .campo {
+    width: 100%;
+    background: rgba(255, 245, 235, 0.04);
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    color: var(--arena);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 160ms ease, background-color 160ms ease;
+  }
+
+  .campo::placeholder { color: #6d6259; }
+
+  .campo:focus {
+    outline: none;
+    border-color: rgba(255, 100, 0, 0.55);
+    background: rgba(255, 245, 235, 0.06);
+  }
+
+  .etiqueta {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--arena);
+    margin-bottom: 0.45rem;
+  }
+}
+
+/* =========================================================
+   Movimiento: una sola secuencia orquestada al cargar.
+   Todo lo demás responde solo a la acción del usuario.
+   ========================================================= */
+
+@keyframes sale-el-sol {
+  from { opacity: 0; transform: translateY(70px) scaleX(0.94); }
+  to   { opacity: 1; transform: translateY(0) scaleX(1); }
+}
+
+@keyframes sube {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes crece-barra {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+.anim-sol   { animation: sale-el-sol 1400ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-sube  { animation: sube 620ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-barra { animation: crece-barra 520ms cubic-bezier(0.16, 1, 0.3, 1) both; transform-origin: bottom; }
+
+.d1 { animation-delay: 120ms; }
+.d2 { animation-delay: 220ms; }
+.d3 { animation-delay: 320ms; }
+.d4 { animation-delay: 430ms; }
+.d5 { animation-delay: 560ms; }
+.d6 { animation-delay: 640ms; }
+.d7 { animation-delay: 700ms; }
+.d8 { animation-delay: 760ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-sol, .anim-sube, .anim-barra {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}
